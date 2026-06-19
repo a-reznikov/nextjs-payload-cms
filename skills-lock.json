@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "building-components": {
+      "source": "ilya-valasiuk/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/building-components/SKILL.md",
+      "computedHash": "3c022c77bcf1f245ff110684cafdfec2b3eadd34d31a34915c6343ad77f196b5"
+    }
+  }
+}
