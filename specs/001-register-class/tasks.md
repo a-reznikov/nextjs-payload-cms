@@ -18,9 +18,9 @@
 
 **Purpose**: Create the feature file structure and shared frontend module entry points
 
-- [ ] T001 Create the register-class component module entry in `src/app/(frontend)/components/register-class/index.ts`
-- [ ] T002 [P] Create shared registration type definitions in `src/app/(frontend)/components/register-class/types.ts`
-- [ ] T003 [P] Create shared form field defaults and labels in `src/app/(frontend)/components/register-class/form-schema.ts`
+- [X] T001 Create the register-class component module entry in `src/app/(frontend)/components/register-class/index.ts`
+- [X] T002 [P] Create shared registration type definitions in `src/app/(frontend)/components/register-class/types.ts`
+- [X] T003 [P] Create shared form field defaults and labels in `src/app/(frontend)/components/register-class/form-schema.ts`
 
 ---
 
@@ -30,9 +30,9 @@
 
 **⚠️ CRITICAL**: No user story work should begin until this phase is complete
 
-- [ ] T004 Create the client-side modal state container in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
-- [ ] T005 [P] Create the reusable form field markup component in `src/app/(frontend)/components/register-class/RegisterClassField.tsx`
-- [ ] T006 [P] Add shared registration modal and button styling hooks in `src/app/(frontend)/styles.css`
+- [X] T004 Create the client-side modal state container in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
+- [X] T005 [P] Create the reusable form field markup component in `src/app/(frontend)/components/register-class/RegisterClassField.tsx`
+- [X] T006 [P] Add shared registration modal and button styling hooks in `src/app/(frontend)/styles.css`
 
 **Checkpoint**: Shared register-class UI foundation is ready for story-specific implementation
 
@@ -46,10 +46,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T007 [P] [US1] Create the registration form layout component in `src/app/(frontend)/components/register-class/RegisterClassForm.tsx`
-- [ ] T008 [US1] Add the `Register for class` CTA and modal open/close wiring in `src/app/(frontend)/page.tsx`
-- [ ] T009 [US1] Compose the modal shell, close action, and field layout in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
-- [ ] T010 [US1] Refine responsive modal sizing, spacing, and button presentation in `src/app/(frontend)/styles.css`
+- [X] T007 [P] [US1] Create the registration form layout component in `src/app/(frontend)/components/register-class/RegisterClassForm.tsx`
+- [X] T008 [US1] Add the `Register for class` CTA and modal open/close wiring in `src/app/(frontend)/page.tsx`
+- [X] T009 [US1] Compose the modal shell, close action, and field layout in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
+- [X] T010 [US1] Refine responsive modal sizing, spacing, and button presentation in `src/app/(frontend)/styles.css`
 
 **Checkpoint**: User Story 1 should be fully functional and testable on its own
 
@@ -63,10 +63,10 @@
 
 ### Implementation for User Story 2
 
-- [ ] T011 [P] [US2] Implement the registration submission endpoint in `src/app/api/register-class/route.ts`
-- [ ] T012 [P] [US2] Create the client-side submission request helper in `src/app/(frontend)/components/register-class/submitRegistration.ts`
-- [ ] T013 [US2] Add required-field validation and inline error state handling in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
-- [ ] T014 [US2] Connect form submission to the API while preserving entered values after recoverable failures in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
+- [X] T011 [P] [US2] Implement the registration submission endpoint in `src/app/api/register-class/route.ts`
+- [X] T012 [P] [US2] Create the client-side submission request helper in `src/app/(frontend)/components/register-class/submitRegistration.ts`
+- [X] T013 [US2] Add required-field validation and inline error state handling in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
+- [X] T014 [US2] Connect form submission to the API while preserving entered values after recoverable failures in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
 
 **Checkpoint**: User Stories 1 and 2 should both work independently, including validation and request submission
 
@@ -80,9 +80,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T015 [P] [US3] Create the success-state details component in `src/app/(frontend)/components/register-class/RegisterClassSuccess.tsx`
-- [ ] T016 [US3] Add submitting, success, and error workflow states with duplicate-submit protection in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
-- [ ] T017 [US3] Render the success-state verification view and modal reset behavior in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
+- [X] T015 [P] [US3] Create the success-state details component in `src/app/(frontend)/components/register-class/RegisterClassSuccess.tsx`
+- [X] T016 [US3] Add submitting, success, and error workflow states with duplicate-submit protection in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
+- [X] T017 [US3] Render the success-state verification view and modal reset behavior in `src/app/(frontend)/components/register-class/RegisterClassModal.tsx`
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -92,9 +92,9 @@
 
 **Purpose**: Final validation and cleanup across all stories
 
-- [ ] T018 [P] Update the home page metadata and supporting copy for the finished registration experience in `src/app/(frontend)/layout.tsx`
-- [ ] T019 Run the manual validation flow documented in `specs/001-register-class/quickstart.md`
-- [ ] T020 Review the endpoint contract against the finished implementation and reconcile any contract wording in `specs/001-register-class/contracts/register-class-api.yaml`
+- [X] T018 [P] Update the home page metadata and supporting copy for the finished registration experience in `src/app/(frontend)/layout.tsx`
+- [X] T019 Run the manual validation flow documented in `specs/001-register-class/quickstart.md`
+- [X] T020 Review the endpoint contract against the finished implementation and reconcile any contract wording in `specs/001-register-class/contracts/register-class-api.yaml`
 
 ---
 
