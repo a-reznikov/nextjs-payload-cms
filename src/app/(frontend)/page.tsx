@@ -24,7 +24,7 @@ export default async function HomePage() {
         className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent"
       />
 
-      <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-between px-6 py-8 sm:px-10 lg:px-12">
+      <main className="mx-auto flex min-h-[calc(100dvh-6rem)] w-full max-w-6xl flex-col justify-between px-6 py-8 sm:px-10 lg:px-12">
         <div className="flex flex-1 items-center">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 shadow-lg shadow-cyan-500/10 backdrop-blur">
