@@ -133,4 +133,6 @@ Notes:
 
 What felt especially smooth was the overall structure of the workflow. The agent was easy to steer, asked useful clarification questions during the explore phase, and responded well when I requested follow-up fixes. That made the process feel reliable and less tiring than implementing the feature manually.
 
+Another useful part of the flow was the final `/archive` step. After implementation was finished, it moved the documentation related to this task into an archived folder. That may be helpful later for tracking development history and possibly for reusing or reviewing past changes in the future.
+
 The main friction was around automation depth. Some useful actions, like creating a branch, making commits, and opening a PR, happened only after I explicitly asked, and parts of the flow still required manual execution and reading through skill documentation. I would use this workflow again, especially for structured feature work, but it would feel even stronger with a bit more proactive guidance and automation between steps.
