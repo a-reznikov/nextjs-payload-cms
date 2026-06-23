@@ -1,13 +1,6 @@
-import { test, expect, Page } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Frontend', () => {
-  let page: Page
-
-  test.beforeAll(async ({ browser }, testInfo) => {
-    const context = await browser.newContext()
-    page = await context.newPage()
-  })
-
   test('can go on homepage', async ({ page }) => {
     await page.goto('http://localhost:3000')
 
@@ -19,42 +12,76 @@ test.describe('Frontend', () => {
   })
 
   test('submits the register for class form and shows the success state', async ({ page }) => {
+    let releaseSubmission: (() => void) | undefined
+
+    await page.route('**/api/register-for-class', async (route) => {
+      await new Promise<void>((resolve) => {
+        releaseSubmission = resolve
+      })
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          success: true,
+          submission: {
+            firstName: 'Ada',
+            lastName: 'Lovelace',
+            email: 'ada@example.com',
+            phone: '123456789',
+            address: 'Main Street 1',
+            plz: '8000',
+            city: 'Zurich',
+            sailingClub: 'Lake Club',
+            boatNumber: 'SUI',
+          },
+        }),
+      })
+    })
+
     await page.goto('http://localhost:3000')
 
-    await expect(page.getByRole('button', { name: 'Register for class' })).toBeVisible()
+    const registerButton = page.getByRole('button', { name: 'Register for class' })
+    await expect(registerButton).toBeVisible()
 
-    await page.getByRole('button', { name: 'Register for class' }).click()
+    await registerButton.click()
 
-    await expect(page.getByRole('dialog', { name: 'Register for class' })).toBeVisible()
-    await page.getByRole('button', { name: 'Submit' }).click()
+    const dialog = page.getByRole('dialog', { name: 'Register for class' })
+    const submitButton = dialog.getByRole('button', { name: 'Submit' })
+    await expect(dialog).toBeVisible()
+    await submitButton.click()
 
-    await expect(page.getByText('First name is required')).toBeVisible()
-    await expect(page.getByText('Last name is required')).toBeVisible()
-    await expect(page.getByText('Email is required')).toBeVisible()
-    await expect(page.getByText('Phone is required')).toBeVisible()
-    await expect(page.getByText('Address is required')).toBeVisible()
-    await expect(page.getByText('Plz is required')).toBeVisible()
-    await expect(page.getByText('City is required')).toBeVisible()
-    await expect(page.getByText('Sailing club is required')).toBeVisible()
+    await expect(dialog.getByText('First name is required')).toBeVisible()
+    await expect(dialog.getByText('Last name is required')).toBeVisible()
+    await expect(dialog.getByText('Email is required')).toBeVisible()
+    await expect(dialog.getByText('Phone is required')).toBeVisible()
+    await expect(dialog.getByText('Address is required')).toBeVisible()
+    await expect(dialog.getByText('Plz is required')).toBeVisible()
+    await expect(dialog.getByText('City is required')).toBeVisible()
+    await expect(dialog.getByText('Sailing club is required')).toBeVisible()
 
-    await page.getByLabel('First name').fill('Ada')
-    await page.getByLabel('Last name').fill('Lovelace')
-    await page.getByLabel('Email').fill('ada@example.com')
-    await page.getByLabel('Phone').fill('123456789')
-    await page.getByLabel('Address').fill('Main Street 1')
-    await page.getByLabel('Plz').fill('8000')
-    await page.getByLabel('City').fill('Zurich')
-    await page.getByLabel('Sailing club').fill('Lake Club')
-    await page.getByLabel('Boat number (optional)').fill('SUI')
+    await dialog.getByLabel('First name').fill('Ada')
+    await dialog.getByLabel('Last name').fill('Lovelace')
+    await dialog.getByLabel('Email').fill('ada@example.com')
+    await dialog.getByLabel('Phone').fill('123456789')
+    await dialog.getByLabel('Address').fill('Main Street 1')
+    await dialog.getByLabel('Plz').fill('8000')
+    await dialog.getByLabel('City').fill('Zurich')
+    await dialog.getByLabel('Sailing club').fill('Lake Club')
+    await dialog.getByLabel('Boat number (optional)').fill('SUI')
 
-    await page.getByRole('button', { name: 'Submit' }).click()
+    await submitButton.click()
 
-    await expect(page.getByRole('button', { name: 'Submitting…' })).toBeDisabled()
-    await expect(page.getByText('Registration submitted')).toBeVisible()
-    await expect(page.getByText('Ada')).toBeVisible()
-    await expect(page.getByText('Lovelace')).toBeVisible()
-    await expect(page.getByText('ada@example.com')).toBeVisible()
-    await expect(page.getByText('Lake Club')).toBeVisible()
-    await expect(page.getByText('SUI')).toBeVisible()
+    const loadingButton = dialog.getByRole('button', { name: 'Submitting…' })
+    await expect(loadingButton).toBeDisabled()
+
+    releaseSubmission?.()
+
+    await expect(dialog.getByText('Registration submitted')).toBeVisible()
+    await expect(dialog.getByText('Ada')).toBeVisible()
+    await expect(dialog.getByText('Lovelace')).toBeVisible()
+    await expect(dialog.getByText('ada@example.com')).toBeVisible()
+    await expect(dialog.getByText('Lake Club')).toBeVisible()
+    await expect(dialog.getByText('SUI')).toBeVisible()
   })
 })
