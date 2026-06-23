@@ -4,6 +4,7 @@ import React from 'react'
 import { fileURLToPath } from 'url'
 
 import config from '@/payload.config'
+import { RegisterClassModal } from './components/register-class'
 
 export default async function HomePage() {
   const headers = await getHeaders()
@@ -43,22 +44,23 @@ export default async function HomePage() {
 
               <div className="space-y-3">
                 <p className="text-sm font-medium uppercase tracking-[0.24em] text-cyan-300/80">
-                  Public frontend
+                  Sailing registration
                 </p>
                 <h1 className="max-w-2xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-                  {user ? `Welcome back, ${user.email}` : 'Welcome to your new project.'}
+                  {user ? `Welcome back, ${user.email}` : 'Register for your next class in minutes.'}
                 </h1>
               </div>
             </div>
 
             <p className="mt-6 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
-              The public page now uses Tailwind utilities for the layout, buttons, spacing, and
-              visual treatment while keeping the Payload auth state and admin link intact.
+              Open the registration modal from this page, send your details to the app API, and
+              verify exactly what was submitted in the success state before you close the dialog.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
+              <RegisterClassModal />
               <a
-                className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
                 href={payloadConfig.routes.admin}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -66,13 +68,43 @@ export default async function HomePage() {
                 Go to admin panel
               </a>
               <a
-                className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40"
+                className="inline-flex items-center justify-center rounded-full border border-cyan-300/20 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-200"
                 href="https://payloadcms.com/docs"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 Documentation
               </a>
+            </div>
+
+            <div className="mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+                <p className="text-sm font-medium uppercase tracking-[0.2em] text-cyan-200/70">
+                  Step 1
+                </p>
+                <p className="mt-3 text-lg font-semibold text-white">Open the modal</p>
+                <p className="mt-2 text-sm leading-6 text-slate-300">
+                  Launch the registration flow without leaving the home page.
+                </p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+                <p className="text-sm font-medium uppercase tracking-[0.2em] text-cyan-200/70">
+                  Step 2
+                </p>
+                <p className="mt-3 text-lg font-semibold text-white">Submit details</p>
+                <p className="mt-2 text-sm leading-6 text-slate-300">
+                  Fill in your class information and send it directly to the app API.
+                </p>
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+                <p className="text-sm font-medium uppercase tracking-[0.2em] text-cyan-200/70">
+                  Step 3
+                </p>
+                <p className="mt-3 text-lg font-semibold text-white">Verify success</p>
+                <p className="mt-2 text-sm leading-6 text-slate-300">
+                  Review the submitted values in the success state before closing the modal.
+                </p>
+              </div>
             </div>
           </div>
         </div>

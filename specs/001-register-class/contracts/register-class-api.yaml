@@ -1,0 +1,109 @@
+openapi: 3.1.0
+info:
+  title: Register for Class API
+  version: 1.0.0
+  description: >
+    Contract for the public class-registration submission endpoint used by the
+    home page modal workflow.
+paths:
+  /api/register-class:
+    post:
+      summary: Submit a class registration
+      operationId: submitRegisterClass
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterClassRequest'
+      responses:
+        '200':
+          description: Registration accepted for verification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterClassSuccessResponse'
+        '400':
+          description: Registration request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterClassErrorResponse'
+        '500':
+          description: Registration request could not be processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterClassErrorResponse'
+components:
+  schemas:
+    RegisterClassRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - firstName
+        - lastName
+        - email
+        - phone
+        - address
+        - postalCode
+        - city
+        - sailingClub
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+        lastName:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+          minLength: 1
+        address:
+          type: string
+          minLength: 1
+        postalCode:
+          type: string
+          minLength: 1
+        city:
+          type: string
+          minLength: 1
+        sailingClub:
+          type: string
+          minLength: 1
+        boatNumber:
+          type: string
+    RegisterClassSuccessResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - message
+        - registration
+      properties:
+        status:
+          type: string
+          const: success
+        message:
+          type: string
+        registration:
+          $ref: '#/components/schemas/RegisterClassRequest'
+    RegisterClassErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+          const: error
+        message:
+          type: string
+        fieldErrors:
+          type: object
+          additionalProperties:
+            type: string

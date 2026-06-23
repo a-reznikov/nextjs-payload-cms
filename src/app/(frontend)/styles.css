@@ -22,3 +22,109 @@
     @apply no-underline;
   }
 }
+
+@layer components {
+  .register-class-trigger {
+    @apply inline-flex items-center justify-center rounded-[1.75rem] bg-sky-600 px-7 py-4 text-base font-semibold text-white transition hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-200;
+  }
+
+  .register-class-overlay {
+    @apply fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/70 px-4 py-6 backdrop-blur-sm sm:px-6 sm:py-10;
+  }
+
+  .register-class-modal {
+    @apply relative w-full max-w-4xl rounded-[2rem] border border-slate-300/60 bg-slate-50 text-slate-900 shadow-2xl shadow-slate-950/40;
+  }
+
+  .register-class-modal__content {
+    @apply px-5 pb-5 pt-6 sm:px-10 sm:pb-10 sm:pt-10;
+  }
+
+  .register-class-modal__header {
+    @apply max-w-3xl pr-14;
+  }
+
+  .register-class-modal__title {
+    @apply m-0 text-3xl font-semibold tracking-tight text-slate-900 sm:text-[3rem];
+  }
+
+  .register-class-modal__description {
+    @apply mb-0 mt-4 text-lg leading-8 text-slate-800 sm:text-[1.95rem] sm:leading-[1.25];
+  }
+
+  .register-class-close {
+    @apply absolute right-5 top-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-300 bg-white text-4xl font-light leading-none text-slate-500 transition hover:border-slate-400 hover:text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400 sm:right-9 sm:top-9;
+  }
+
+  .register-class-modal__form {
+    @apply mt-10;
+  }
+
+  .register-class-form {
+    @apply grid gap-x-6 gap-y-8 sm:grid-cols-12 sm:gap-y-10;
+  }
+
+  .register-class-form__field--half {
+    @apply sm:col-span-6;
+  }
+
+  .register-class-form__field--full {
+    @apply sm:col-span-12;
+  }
+
+  .register-class-form__field--postal {
+    @apply sm:col-span-3;
+  }
+
+  .register-class-form__field--city {
+    @apply sm:col-span-9;
+  }
+
+  .register-class-field {
+    @apply flex flex-col gap-3;
+  }
+
+  .register-class-field__label {
+    @apply text-xl font-medium text-slate-500 sm:text-[2rem];
+  }
+
+  .register-class-field__input {
+    @apply h-16 rounded-[1.4rem] border border-slate-300 bg-white px-5 text-xl text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-4 focus:ring-sky-100 disabled:cursor-not-allowed disabled:bg-slate-100 sm:h-[4.45rem] sm:text-[1.9rem];
+  }
+
+  .register-class-field__error {
+    @apply text-sm font-medium text-rose-600 sm:text-base;
+  }
+
+  .register-class-modal__error {
+    @apply mt-6 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700 sm:text-base;
+  }
+
+  .register-class-submit {
+    @apply mt-10 inline-flex w-full items-center justify-center rounded-[1.75rem] bg-sky-600 px-6 py-4 text-2xl font-semibold text-white transition hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-300 disabled:cursor-not-allowed disabled:bg-sky-400;
+  }
+
+  .register-class-success {
+    @apply mt-10 rounded-[1.75rem] border border-emerald-200 bg-white/85 p-5 shadow-sm sm:p-8;
+  }
+
+  .register-class-success__message {
+    @apply m-0 text-lg font-medium leading-7 text-emerald-800 sm:text-xl;
+  }
+
+  .register-class-success__list {
+    @apply mt-6 grid gap-4 sm:grid-cols-2;
+  }
+
+  .register-class-success__item {
+    @apply rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3;
+  }
+
+  .register-class-success__term {
+    @apply text-sm font-semibold uppercase tracking-[0.18em] text-slate-500;
+  }
+
+  .register-class-success__value {
+    @apply mt-2 text-base font-medium text-slate-900;
+  }
+}
