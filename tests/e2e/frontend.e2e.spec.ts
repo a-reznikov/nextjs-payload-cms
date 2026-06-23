@@ -75,7 +75,8 @@ test.describe('Frontend', () => {
     const loadingButton = dialog.getByRole('button', { name: 'Submitting…' })
     await expect(loadingButton).toBeDisabled()
 
-    releaseSubmission?.()
+    expect(releaseSubmission).toBeDefined()
+    releaseSubmission()
 
     await expect(dialog.getByText('Registration submitted')).toBeVisible()
     await expect(dialog.getByText('Ada')).toBeVisible()
