@@ -13,8 +13,37 @@ test.describe('Frontend', () => {
 
   test('submits the register for class form and shows the success state', async ({ page }) => {
     let releaseSubmission: (() => void) | undefined
+    let requestStarted = false
 
     await page.route('**/api/register-for-class', async (route) => {
+      const request = route.request()
+      const payload = request.postDataJSON() as {
+        address: string
+        boatNumber: string
+        city: string
+        email: string
+        firstName: string
+        lastName: string
+        phone: string
+        plz: string
+        sailingClub: string
+      }
+
+      expect(request.method()).toBe('POST')
+      expect(payload).toEqual({
+        firstName: 'Ada',
+        lastName: 'Lovelace',
+        email: 'ada@example.com',
+        phone: '123456789',
+        address: 'Main Street 1',
+        plz: '8000',
+        city: 'Zurich',
+        sailingClub: 'Lake Club',
+        boatNumber: 'SUI',
+      })
+
+      requestStarted = true
+
       await new Promise<void>((resolve) => {
         releaseSubmission = resolve
       })
@@ -72,6 +101,7 @@ test.describe('Frontend', () => {
 
     await submitButton.click()
 
+    await expect.poll(() => requestStarted).toBe(true)
     const loadingButton = dialog.getByRole('button', { name: 'Submitting…' })
     await expect(loadingButton).toBeDisabled()
 
