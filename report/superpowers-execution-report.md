@@ -71,9 +71,9 @@ Step 1: `**superpowers:using-superpowers`** (Initialize the required skill-first
 
 | Evaluation Question                                                  | Response (Yes/No/Partial) | Human Notes / Comments                                                                                                                                                                 |
 | -------------------------------------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Is it easy to integrate into an existing project?                    | Yes                       | But when we install this plugin it works for any projects. Sometimes we don;t need these deep research and impelmenation for simple questions.                                         |
+| Is it easy to integrate into an existing project?                    | Yes                       | Once installed, this plugin can work for many projects. Sometimes, though, we do not need such deep research and implementation for simple questions.                                 |
 | Is it immediately clear how to use or trigger it?                    | Yes                       |                                                                                                                                                                                        |
-| Does it use our own custom skills or only external/pre-baked skills? | Yes                       | But ot prepared plan for ccreating components without instructions from building-components skill. Then I asked it to use and it revrite plan and used it it during the implementation |
+| Does it use our own custom skills or only external/pre-baked skills? | Yes                       | It first prepared the component plan without using the `building-components` skill. After I asked it to use that skill, it rewrote the plan and applied it during implementation.     |
 | Is the documentation up to date with the actual tool behavior?       | Yes                       |                                                                                                                                                                                        |
 
 
@@ -84,11 +84,11 @@ Step 1: `**superpowers:using-superpowers`** (Initialize the required skill-first
 | --------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Is it easy to control or steer the agent's process?                               | Yes                       |                                                                                                                                                                                |
 | Does it ask clarification questions before preparing the specification?           | Yes                       |                                                                                                                                                                                |
-| Can you easily pause, interrupt, or cancel a running agent?                       | Partial                   | It works without stopping during impelemtation. And we need to stop it if we need. But I ddid it several times and then simple asked agent to coninue.                         |
-| Does the agent proactively suggest the next step/command?                         | Yes                       | It doesn't show name of skills or command but it meantions next step and it is enought to say ok for process next step.                                                        |
+| Can you easily pause, interrupt, or cancel a running agent?                       | Partial                   | It continues working without stopping during implementation, so we need to interrupt it manually when needed. I did this several times, and then simply asked the agent to continue. |
+| Does the agent proactively suggest the next step/command?                         | Yes                       | It does not show the exact skill or command name, but it mentions the next step clearly, and that is enough to approve the next action.                                        |
 | Does it suggest an implementation flow (sequential execution or parallel agents)? | Yes                       |                                                                                                                                                                                |
 | Does it orchestrate subagents from one main agent?                                | Yes                       |                                                                                                                                                                                |
-| Is it easy to correct the agent if it makes a mistake midway?                     | Partial                   | It performe tha task without stopping. So we need to catch moment with error or issues and then stop it. But it does a lot of verifications and it catched many errors itself. |
+| Is it easy to correct the agent if it makes a mistake midway?                     | Partial                   | It performs the task without stopping, so we need to catch the moment when an error or issue appears and interrupt it. Still, it does a lot of verification and catches many errors by itself. |
 
 
 ### 3. Clarity & Artifact Quality
@@ -97,12 +97,12 @@ Step 1: `**superpowers:using-superpowers`** (Initialize the required skill-first
 | Evaluation Question                                                                | Response (Yes/No/Partial) | Human Notes / Comments                                                                   |
 | ---------------------------------------------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------- |
 | Are the generated specs, plans, or tasks clear to read?                            |                           |                                                                                          |
-| Does it use a clear `Given -> When -> Then` structure where appropriate?           | No                        | But it uses its own structure (Goal, non-goal and so on)                                 |
+| Does it use a clear `Given -> When -> Then` structure where appropriate?           | No                        | It uses its own structure instead, such as goals, non-goals, and similar sections.      |
 | Does it follow a clear `red -> green -> refactor` workflow?                        | Yes                       | It uses TDD.                                                                             |
 | Is the amount of generated documentation well-balanced?                            | Yes                       |                                                                                          |
 | Did the agent stick strictly to the requested feature scope?                       | Yes                       |                                                                                          |
 | Does it do extra work, code expansion, or generate boilerplate that we don't need? | No                        |                                                                                          |
-| Did the generated code respect your project's styling/linting rules?               | Partial                   | Maybe we need some extra setting for project (eg [AGENTS.md](http://AGENTS.md) or rules) |
+| Did the generated code respect your project's styling/linting rules?               | Partial                   | Maybe we need some extra project-specific settings, for example in `AGENTS.md` or additional rules. |
 
 
 ### 4. Git & Platform Automation
@@ -110,11 +110,11 @@ Step 1: `**superpowers:using-superpowers`** (Initialize the required skill-first
 
 | Evaluation Question                                                    | Response (Yes/No/Partial) | Human Notes / Comments                                                                           |
 | ---------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------ |
-| Does it automatically create a separate Git branch for the task?       | No                        | It has skill for it but created a barch only after my proposal.                                  |
+| Does it automatically create a separate Git branch for the task?       | No                        | It has a skill for this, but it created the branch only after I explicitly asked for it.         |
 | Does it make intermediate Git commits between workflow steps?          | Yes                       | Very clear, after each task (subtask) or logical part.                                           |
 | Does it create tracking issues/tickets in GitHub?                      | No                        |                                                                                                  |
-| Does it automatically open a Pull Request (PR) when done?              | Partial                   | It said that everything is ready for oushing changes, then I asked to open pr.                   |
-| Does it clean up its own meta-files/temp files before submitting code? | No                        | There are no a lot files. I'm not sure abou if we need [plan.md](http://plan.md) in repo or not. |
+| Does it automatically open a Pull Request (PR) when done?              | Partial                   | It said that everything was ready for pushing changes, and then I asked it to open the PR.       |
+| Does it clean up its own meta-files/temp files before submitting code? | No                        | There are not many extra files, but I am still not sure whether files like the plan should remain in the repository or not. |
 
 
 ### 5. Subjective Developer Experience (UX)
@@ -122,7 +122,7 @@ Step 1: `**superpowers:using-superpowers`** (Initialize the required skill-first
 
 | Evaluation Question                                                | Response (Yes/No/Partial) | Human Notes / Comments                                                                                                                                                            |
 | ------------------------------------------------------------------ | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Did you feel confident letting the agent run unattended?           | Partial                   | It spends a lot of tokens, but I'm sure that results have to be good. Beacuse It use TDD and does several checks and testings after impelementation by using different subagents. |
+| Did you feel confident letting the agent run unattended?           | Partial                   | I felt fairly confident because it uses TDD, creates subagents, and runs many checks on its own. At the same time, this approach uses a lot of tokens, so the overall cost can become quite high. |
 | Was the experience less exhausting than writing the code manually? | Yes                       |                                                                                                                                                                                   |
 | Would a non-developer (PM/QA) be able to run this exact flow?      | Yes                       |                                                                                                                                                                                   |
 
@@ -145,4 +145,6 @@ Suggested prompts:
 
 Notes:
 
-[Freeform human notes here]
+This workflow felt especially useful for a larger task because it combined planning, TDD, verification, and subagents in a very structured way. It was also surprisingly easy to use from my side: in most cases, I only needed to review the next step and say yes. My trust increased once I saw that it was catching issues on its own and re-checking the work before moving forward.
+
+The main downside is cost. Because it creates many subagents and performs a lot of checks, it uses a lot of tokens, so this workflow can become expensive. I also still needed to step in at a few moments, for example to request a branch, pause or continue the process, and ask for PR creation. Even with that, the overall experience felt easier and less tiring than doing the same implementation manually.
