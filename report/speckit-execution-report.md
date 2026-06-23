@@ -58,36 +58,39 @@ Step 1: `/speckit-specify` (Created the feature specification for the register-f
 ### 1. Onboarding & Setup Friction
 | Evaluation Question | Response (Yes/No/Partial) | Human Notes / Comments |
 | :--- | :---: | :--- |
-| **Is it easy to integrate into an existing project?** | No | It requires `uv` to be installed, so it seems better suited for new projects. Some skills also require `PyYAML`. |
-| **Is it immediately clear how to use or trigger it?** | Partial |  |
-| **Does it use our own custom skills or only external/pre-baked skills?** | Partial | We can see that it uses our custom skill `building-components`, but according to the spec it ignored the instructions from `building-components` and defined the wrong locations for the components at the spec level. |
+| Is it easy to integrate into an existing project? | No | It requires `uv` to be installed, so it seems better suited for new projects. Some skills also require `PyYAML`. |
+| Is it immediately clear how to use or trigger it? | Partial |  |
+| Does it use our own custom skills or only external/pre-baked skills? | Partial | We can see that it uses our custom skill `building-components`, but according to the spec it ignored the instructions from `building-components` and defined the wrong locations for the components at the spec level. |
 | Is the documentation up to date with the actual tool behavior? | Yes |  |
 
 ### 2. Process Control & Autonomy
 | Evaluation Question | Response (Yes/No/Partial) | Human Notes / Comments |
 | :--- | :---: | :--- |
-| **Is it easy to control or steer the agent's process?** | Yes |  |
-| **Does it ask clarification questions before preparing the specification?** | No |  |
+| Is it easy to control or steer the agent's process? | Yes |  |
+| Does it ask clarification questions before preparing the specification? | No |  |
 | Can you easily pause, interrupt, or cancel a running agent? | Yes |  |
 | Does the agent proactively suggest the next step/command? | Yes | But some of them do not work, and it does not suggest what we should do about that issue (for example, `/update-agent-context`). |
+| Does it suggest an implementation flow (sequential execution or parallel agents)? | No |  |
+| Does it orchestrate subagents from one main agent? | No |  |
 | Is it easy to correct the agent if it makes a mistake midway? | Yes |  |
 
 ### 3. Clarity & Artifact Quality
 | Evaluation Question | Response (Yes/No/Partial) | Human Notes / Comments |
 | :--- | :---: | :--- |
-| **Are the generated specs, plans, or tasks clear to read?** | No | It creates a lot of files (`spec`, `tasks`, `plans`, `requirements`, and so on). It is difficult to read and understand. |
+| Are the generated specs, plans, or tasks clear to read? | No | It creates a lot of files (`spec`, `tasks`, `plans`, `requirements`, and so on). It is difficult to read and understand. |
+| Does it use a clear `Given -> When -> Then` structure where appropriate? | Yes |  |
 | Is the amount of generated documentation well-balanced? | No | There are a lot of files |
 | Did the agent stick strictly to the requested feature scope? | Partial |  |
-| **Does it do extra work, code expansion, or generate boilerplate that we don't need?** | Yes | It created additional elements on the page that we did not ask for. |
+| Does it do extra work, code expansion, or generate boilerplate that we don't need? | Yes | It created additional elements on the page that we did not ask for. |
 | Did the generated code respect your project's styling/linting rules? | No |  |
 
 ### 4. Git & Platform Automation
 | Evaluation Question | Response (Yes/No/Partial) | Human Notes / Comments |
 | :--- | :---: | :--- |
-| **Does it automatically create a separate Git branch for the task?** | No | Only after I asked. |
-| **Does it make intermediate Git commits between workflow steps?** | No | All commits were made manually. In my view, this is a bit wrong, because after the initial Speckit setup there were already a lot of files, and that would have been a good time for the first commit. It is difficult to work on the task when there are many uncommitted files. |
-| **Does it create tracking issues/tickets in GitHub?** | No | But it has a specific skill for this, `taskstoissues`, and I called it in another execution. It created one issue for each task. In my view, that looked wrong, because all of those issues were too small and did not have detailed descriptions. They only had titles and nothing else, so they looked like noise instead of real issues. |
-| **Does it automatically open a Pull Request (PR) when done?** | No |  |
+| Does it automatically create a separate Git branch for the task? | No | Only after I asked. |
+| Does it make intermediate Git commits between workflow steps? | No | All commits were made manually. In my view, this is a bit wrong, because after the initial Speckit setup there were already a lot of files, and that would have been a good time for the first commit. It is difficult to work on the task when there are many uncommitted files. |
+| Does it create tracking issues/tickets in GitHub? | No | But it has a specific skill for this, `taskstoissues`, and I called it in another execution. It created one issue for each task. In my view, that looked wrong, because all of those issues were too small and did not have detailed descriptions. They only had titles and nothing else, so they looked like noise instead of real issues. |
+| Does it automatically open a Pull Request (PR) when done? | No |  |
 | Does it clean up its own meta-files/temp files before submitting code? | No | It is not clear which files we have to store in Git and which we need to remove after implementation. Speckit does not suggest anything. |
 
 ### 5. Subjective Developer Experience (UX)
@@ -95,4 +98,4 @@ Step 1: `/speckit-specify` (Created the feature specification for the register-f
 | :--- | :---: | :--- |
 | Did you feel confident letting the agent run unattended? | No |  |
 | Was the experience less exhausting than writing the code manually? | Partial | Because the process is not clear and is difficult to read and understand. |
-| **Would a non-developer (PM/QA) be able to run this exact flow?** | Partial | It does not give us an end-to-end flow. We still have to think about when to create a branch, make a commit, open a PR, and so on. |
+| Would a non-developer (PM/QA) be able to run this exact flow? | Partial | It does not give us an end-to-end flow. We still have to think about when to create a branch, make a commit, open a PR, and so on. |
