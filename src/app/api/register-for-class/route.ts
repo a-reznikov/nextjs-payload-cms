@@ -21,6 +21,10 @@ type RegistrationPayload = {
   boatNumber: string
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
 function normalizeField(input: Record<string, unknown>, field: keyof RegistrationPayload) {
   const value = input[field]
 
@@ -48,7 +52,31 @@ function normalizePayload(input: Record<string, unknown>) {
 }
 
 export async function POST(request: Request) {
-  const payload = (await request.json()) as Record<string, unknown>
+  let parsedBody: unknown
+
+  try {
+    parsedBody = await request.json()
+  } catch {
+    return Response.json(
+      {
+        success: false,
+        error: 'Malformed JSON body',
+      },
+      { status: 400 },
+    )
+  }
+
+  if (!isRecord(parsedBody)) {
+    return Response.json(
+      {
+        success: false,
+        error: 'Invalid request body',
+      },
+      { status: 400 },
+    )
+  }
+
+  const payload = parsedBody
   const submission = normalizePayload(payload)
 
   const missingFields = requiredFields.filter((field) => !submission[field])

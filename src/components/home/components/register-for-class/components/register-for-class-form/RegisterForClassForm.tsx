@@ -200,7 +200,12 @@ export const RegisterForClassForm: React.FC<Props> = ({
     </label>
 
     {submissionError && (
-      <p className="rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm text-rose-100">
+      <p
+        aria-atomic="true"
+        aria-live="assertive"
+        className="rounded-2xl border border-rose-400/20 bg-rose-400/10 px-4 py-3 text-sm text-rose-100"
+        role="alert"
+      >
         {submissionError}
       </p>
     )}
