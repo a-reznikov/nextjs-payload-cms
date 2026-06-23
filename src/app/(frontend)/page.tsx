@@ -3,7 +3,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import { fileURLToPath } from 'url'
 
-import { RegisterForClassCTA } from '@/components/RegisterForClassCTA'
+import { RegisterForClassCTA } from '@/components/home/components/register-for-class-cta/RegisterForClassCTA'
 import config from '@/payload.config'
 
 export default async function HomePage() {

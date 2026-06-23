@@ -25,6 +25,8 @@ type ApiErrorResponse = {
   error?: string
 }
 
+type Props = Record<string, never>
+
 const EMPTY_FORM: RegistrationFormData = {
   firstName: '',
   lastName: '',
@@ -78,7 +80,7 @@ const FORM_FIELDS: Array<{
   { key: 'boatNumber', autoComplete: 'off', className: 'sm:col-span-2' },
 ]
 
-function validateForm(values: RegistrationFormData) {
+const validateForm = (values: RegistrationFormData) => {
   const errors: ValidationErrors = {}
 
   for (const field of REQUIRED_FIELDS) {
@@ -90,11 +92,9 @@ function validateForm(values: RegistrationFormData) {
   return errors
 }
 
-function formatFieldValue(value: string) {
-  return value.trim() || 'Not provided'
-}
+const formatFieldValue = (value: string) => value.trim() || 'Not provided'
 
-export function RegisterForClassCTA() {
+export const RegisterForClassCTA: React.FC<Props> = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState<RegistrationFormData>(EMPTY_FORM)
   const [errors, setErrors] = useState<ValidationErrors>({})
@@ -247,7 +247,7 @@ export function RegisterForClassCTA() {
                 </div>
               </div>
             ) : (
-              <form className="space-y-8" onSubmit={handleSubmit} noValidate>
+              <form className="space-y-8" noValidate onSubmit={handleSubmit}>
                 <div className="space-y-4 pr-8">
                   <h2
                     id="register-for-class-title"
@@ -274,13 +274,13 @@ export function RegisterForClassCTA() {
                           aria-invalid={errors[key] ? 'true' : 'false'}
                           autoComplete={autoComplete}
                           className="w-full rounded-[22px] border border-slate-300 bg-white px-6 py-4 text-xl text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#1387af] focus:ring-4 focus:ring-cyan-100 disabled:cursor-wait disabled:opacity-70"
+                          disabled={status === 'submitting'}
                           inputMode={inputMode}
                           name={key}
                           required={isRequired}
                           type={type}
                           value={formData[key]}
                           onChange={(event) => handleChange(key, event.target.value)}
-                          disabled={status === 'submitting'}
                         />
                         {errors[key] ? (
                           <span className="mt-2 block text-sm font-medium text-rose-600">

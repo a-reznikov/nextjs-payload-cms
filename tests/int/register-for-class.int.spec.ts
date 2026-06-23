@@ -3,14 +3,20 @@ import { act } from 'react'
 import { createRoot, Root } from 'react-dom/client'
 
 import { POST } from '@/app/api/register-for-class/route'
-import { RegisterForClassCTA } from '@/components/RegisterForClassCTA'
+import { RegisterForClassCTA } from '@/components/home/components/register-for-class-cta/RegisterForClassCTA'
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 let container: HTMLDivElement | null = null
 let root: Root | null = null
 
-globalThis.IS_REACT_ACT_ENVIRONMENT = true
+declare global {
+  interface Window {
+    IS_REACT_ACT_ENVIRONMENT?: boolean
+  }
+}
+
+window.IS_REACT_ACT_ENVIRONMENT = true
 
 function getByText(text: string) {
   const matcher = new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
