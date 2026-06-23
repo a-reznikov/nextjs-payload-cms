@@ -22,6 +22,7 @@ export const RegisterForClass: React.FC = () => {
   const dialogRef = useRef<HTMLDivElement>(null)
   const firstInputRef = useRef<HTMLInputElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
+  const hasOpenedRef = useRef(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formValues, setFormValues] = useState<FormValues>(initialValues)
@@ -107,7 +108,7 @@ export const RegisterForClass: React.FC = () => {
   }, [isOpen, isSubmitting])
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen || !hasOpenedRef.current) {
       return
     }
 
@@ -127,6 +128,7 @@ export const RegisterForClass: React.FC = () => {
   }
 
   const handleOpen = () => {
+    hasOpenedRef.current = true
     setIsOpen(true)
     setFormValues(initialValues)
     setSubmission(null)
