@@ -18,7 +18,6 @@ type RegistrationPayload = {
   plz: string
   city: string
   sailingClub: string
-  boatNumber: string
 }
 
 function normalizePayload(input: Record<string, unknown>): RegistrationPayload {
@@ -31,7 +30,6 @@ function normalizePayload(input: Record<string, unknown>): RegistrationPayload {
     plz: String(input.plz ?? '').trim(),
     city: String(input.city ?? '').trim(),
     sailingClub: String(input.sailingClub ?? '').trim(),
-    boatNumber: String(input.boatNumber ?? '').trim(),
   }
 }
 

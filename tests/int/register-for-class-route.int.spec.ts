@@ -11,7 +11,6 @@ const validPayload = {
   plz: '8000',
   city: 'Zurich',
   sailingClub: 'Lake Club',
-  boatNumber: ' SUI ',
 }
 
 describe('register-for-class route', () => {
@@ -39,7 +38,6 @@ describe('register-for-class route', () => {
         plz: '8000',
         city: 'Zurich',
         sailingClub: 'Lake Club',
-        boatNumber: 'SUI',
       },
     })
   })
