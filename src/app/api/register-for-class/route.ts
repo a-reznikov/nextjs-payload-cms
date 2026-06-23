@@ -18,6 +18,7 @@ type RegistrationPayload = {
   plz: string
   city: string
   sailingClub: string
+  boatNumber: string
 }
 
 function normalizeField(input: Record<string, unknown>, field: keyof RegistrationPayload) {
@@ -42,6 +43,7 @@ function normalizePayload(input: Record<string, unknown>) {
     plz: normalizeField(input, 'plz'),
     city: normalizeField(input, 'city'),
     sailingClub: normalizeField(input, 'sailingClub'),
+    boatNumber: typeof input.boatNumber === 'string' ? input.boatNumber.trim() : '',
   }
 }
 
