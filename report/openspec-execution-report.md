@@ -59,8 +59,8 @@ Step 1: Read `**openspec-explore`** and the project’s `**payload**` skill to g
 | -------------------------------------------------------------------- | ------------------------- | ------------------------------------------------- |
 | Is it easy to integrate into an existing project?                    | Yes                       |                                                   |
 | Is it immediately clear how to use or trigger it?                    | Yes                       |                                                   |
-| Does it use our own custom skills or only external/pre-baked skills? | No                        | Use only after asking.                            |
-| Is the documentation up to date with the actual tool behavior?       | Yes                       | Also provided clear flow of the execution skills. |
+| Does it use our own custom skills or only external/pre-baked skills? | No                        | It uses our custom skills only when explicitly asked. |
+| Is the documentation up to date with the actual tool behavior?       | Yes                       | It also provided a clear execution flow for the skills. |
 
 
 ### 2. Process Control & Autonomy
@@ -69,12 +69,12 @@ Step 1: Read `**openspec-explore`** and the project’s `**payload**` skill to g
 | Evaluation Question                                                               | Response (Yes/No/Partial) | Human Notes / Comments                                            |
 | --------------------------------------------------------------------------------- | ------------------------- | ----------------------------------------------------------------- |
 | Is it easy to control or steer the agent's process?                               | Yes                       |                                                                   |
-| Does it ask clarification questions before preparing the specification?           | Yes                       | When we use /explore skill in flow.                               |
-| Can you easily pause, interrupt, or cancel a running agent?                       | Yes                       | Since a flow is easy we can stop it and rerun it later            |
-| Does the agent proactively suggest the next step/command?                         | Yes                       | It meantion skills thatw e can call next                          |
-| Does it suggest an implementation flow (sequential execution or parallel agents)? | No                        | It implement task one by one.                                     |
+| Does it ask clarification questions before preparing the specification?           | Yes                       | It does this when we use the `/explore` skill in the flow.        |
+| Can you easily pause, interrupt, or cancel a running agent?                       | Yes                       | Since the flow is straightforward, we can stop it and rerun it later. |
+| Does the agent proactively suggest the next step/command?                         | Yes                       | It mentions the skills we can call next.                          |
+| Does it suggest an implementation flow (sequential execution or parallel agents)? | No                        | It implements the task step by step.                              |
 | Does it orchestrate subagents from one main agent?                                | No                        |                                                                   |
-| Is it easy to correct the agent if it makes a mistake midway?                     | Yes                       | After implementation I asked agent to fix sime issued and it did. |
+| Is it easy to correct the agent if it makes a mistake midway?                     | Yes                       | After implementation, I asked the agent to fix some issues, and it did. |
 
 
 ### 3. Clarity & Artifact Quality
@@ -85,10 +85,10 @@ Step 1: Read `**openspec-explore`** and the project’s `**payload**` skill to g
 | Are the generated specs, plans, or tasks clear to read?                            | Yes                       |                                                                      |
 | Does it use a clear `Given -> When -> Then` structure where appropriate?           | Yes                       |                                                                      |
 | Does it follow a clear `red -> green -> refactor` workflow?                        |                           |                                                                      |
-| Is the amount of generated documentation well-balanced?                            | Yes                       | Not too many and not too less. Clear structure and file palcements.  |
+| Is the amount of generated documentation well-balanced?                            | Yes                       | Not too much and not too little. The structure and file placement are clear. |
 | Did the agent stick strictly to the requested feature scope?                       | Yes                       |                                                                      |
 | Does it do extra work, code expansion, or generate boilerplate that we don't need? | No                        |                                                                      |
-| Did the generated code respect your project's styling/linting rules?               | Partial                   | We had an typescript error with type any (but eslint didn' allow it) |
+| Did the generated code respect your project's styling/linting rules?               | Partial                   | We had a TypeScript `any` type error, but ESLint did not allow it.   |
 
 
 ### 4. Git & Platform Automation
@@ -96,10 +96,10 @@ Step 1: Read `**openspec-explore`** and the project’s `**payload**` skill to g
 
 | Evaluation Question                                                    | Response (Yes/No/Partial) | Human Notes / Comments                                                                              |
 | ---------------------------------------------------------------------- | ------------------------- | --------------------------------------------------------------------------------------------------- |
-| Does it automatically create a separate Git branch for the task?       | No                        | Created branch only after askng.                                                                    |
-| Does it make intermediate Git commits between workflow steps?          | No                        | All commits where did by myself and it doesnt suugest to do any coomits dutring the implemenattion. |
+| Does it automatically create a separate Git branch for the task?       | No                        | It created the branch only after I asked.                                                           |
+| Does it make intermediate Git commits between workflow steps?          | No                        | All commits were done only after I asked, and it did not suggest making commits during implementation. |
 | Does it create tracking issues/tickets in GitHub?                      | No                        |                                                                                                     |
-| Does it automatically open a Pull Request (PR) when done?              | No                        | Only when I asked. And it doesn't suggest to do it.                                                 |
+| Does it automatically open a Pull Request (PR) when done?              | No                        | Only when I asked, and it did not suggest doing it on its own.                                      |
 | Does it clean up its own meta-files/temp files before submitting code? | No                        |                                                                                                     |
 
 
@@ -110,7 +110,7 @@ Step 1: Read `**openspec-explore`** and the project’s `**payload**` skill to g
 | ------------------------------------------------------------------ | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Did you feel confident letting the agent run unattended?           | Yes                       |                                                                                                                                                                                    |
 | Was the experience less exhausting than writing the code manually? | Yes                       |                                                                                                                                                                                    |
-| Would a non-developer (PM/QA) be able to run this exact flow?      | Partial                   | Even that there are example of flow and it suggest next steps, implementer have to execute steps manually and dive deepr in documentation and description of each command (skills) |
+| Would a non-developer (PM/QA) be able to run this exact flow?      | Partial                   | Even though there are example flows and it suggests next steps, the person running it still has to execute steps manually and go deeper into the documentation and description of each command/skill. |
 
 
 ---
@@ -131,4 +131,6 @@ Suggested prompts:
 
 Notes:
 
-[Freeform human notes here]
+What felt especially smooth was the overall structure of the workflow. The agent was easy to steer, asked useful clarification questions during the explore phase, and responded well when I requested follow-up fixes. That made the process feel reliable and less tiring than implementing the feature manually.
+
+The main friction was around automation depth. Some useful actions, like creating a branch, making commits, and opening a PR, happened only after I explicitly asked, and parts of the flow still required manual execution and reading through skill documentation. I would use this workflow again, especially for structured feature work, but it would feel even stronger with a bit more proactive guidance and automation between steps.
