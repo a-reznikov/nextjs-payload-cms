@@ -64,4 +64,27 @@ describe('register-for-class route', () => {
       fields: ['city'],
     })
   })
+
+  it('returns a 400 error when a required field is not a string', async () => {
+    const request = new Request('http://localhost:3000/api/register-for-class', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...validPayload,
+        phone: 123,
+      }),
+    })
+
+    const response = await POST(request)
+    const body = await response.json()
+
+    expect(response.status).toBe(400)
+    expect(body).toEqual({
+      success: false,
+      error: 'Missing required fields',
+      fields: ['phone'],
+    })
+  })
 })

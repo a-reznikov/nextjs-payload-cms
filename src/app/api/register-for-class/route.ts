@@ -20,16 +20,28 @@ type RegistrationPayload = {
   sailingClub: string
 }
 
-function normalizePayload(input: Record<string, unknown>): RegistrationPayload {
+function normalizeField(input: Record<string, unknown>, field: keyof RegistrationPayload) {
+  const value = input[field]
+
+  if (typeof value !== 'string') {
+    return null
+  }
+
+  const trimmed = value.trim()
+
+  return trimmed.length > 0 ? trimmed : null
+}
+
+function normalizePayload(input: Record<string, unknown>) {
   return {
-    firstName: String(input.firstName ?? '').trim(),
-    lastName: String(input.lastName ?? '').trim(),
-    email: String(input.email ?? '').trim(),
-    phone: String(input.phone ?? '').trim(),
-    address: String(input.address ?? '').trim(),
-    plz: String(input.plz ?? '').trim(),
-    city: String(input.city ?? '').trim(),
-    sailingClub: String(input.sailingClub ?? '').trim(),
+    firstName: normalizeField(input, 'firstName'),
+    lastName: normalizeField(input, 'lastName'),
+    email: normalizeField(input, 'email'),
+    phone: normalizeField(input, 'phone'),
+    address: normalizeField(input, 'address'),
+    plz: normalizeField(input, 'plz'),
+    city: normalizeField(input, 'city'),
+    sailingClub: normalizeField(input, 'sailingClub'),
   }
 }
 
@@ -52,6 +64,6 @@ export async function POST(request: Request) {
 
   return Response.json({
     success: true,
-    submission,
+    submission: submission as RegistrationPayload,
   })
 }
