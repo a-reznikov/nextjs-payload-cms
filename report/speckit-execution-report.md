@@ -79,6 +79,7 @@ Step 1: `/speckit-specify` (Created the feature specification for the register-f
 | :--- | :---: | :--- |
 | Are the generated specs, plans, or tasks clear to read? | No | It creates a lot of files (`spec`, `tasks`, `plans`, `requirements`, and so on). It is difficult to read and understand. |
 | Does it use a clear `Given -> When -> Then` structure where appropriate? | Yes |  |
+| Does it follow a clear `red -> green -> refactor` workflow? | No | The implementation was done before the tests were updated, and there was no explicit failing-test-first or refactor phase. |
 | Is the amount of generated documentation well-balanced? | No | There are a lot of files |
 | Did the agent stick strictly to the requested feature scope? | Partial |  |
 | Does it do extra work, code expansion, or generate boilerplate that we don't need? | Yes | It created additional elements on the page that we did not ask for. |
