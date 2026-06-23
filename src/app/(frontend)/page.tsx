@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import { fileURLToPath } from 'url'
 
+import { RegisterForClassCTA } from '@/components/home/components/register-for-class-cta/RegisterForClassCTA'
 import config from '@/payload.config'
 
 export default async function HomePage() {
@@ -57,6 +58,7 @@ export default async function HomePage() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
+              <RegisterForClassCTA />
               <a
                 className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
                 href={payloadConfig.routes.admin}
