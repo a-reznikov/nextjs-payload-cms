@@ -314,43 +314,43 @@
                 </div>
             </div>
 
-            <div id="execution-highlights" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-                <!-- Dynamic highlight cards -->
-            </div>
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+                <div id="execution-highlights" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Dynamic highlight cards -->
+                </div>
 
-            <div class="grid grid-cols-1 xl:grid-cols-5 gap-6 mb-6">
-                <div class="xl:col-span-2 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                     <h3 class="text-lg font-bold text-slate-900">Resource Cost vs. Run Size</h3>
                     <p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed">Lower weekly-limit consumption is better. Step count shows how much process the human had to follow or review.</p>
                     <div class="execution-chart-container">
                         <canvas id="executionResourceChart"></canvas>
                     </div>
                 </div>
+            </div>
 
-                <div class="xl:col-span-3 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                    <div class="p-6 border-b border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-900">Outcome Comparison</h3>
-                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">Human evaluation answers were normalized as Yes, Partial, or No so the report can be scanned without reading every Markdown table.</p>
-                    </div>
-                    <div class="overflow-x-auto custom-scrollbar">
-                        <table class="w-full min-w-[920px] text-left">
-                            <thead class="bg-slate-50 border-b border-slate-100">
-                                <tr class="text-[11px] uppercase tracking-wider text-slate-500">
-                                    <th class="px-4 py-3 font-bold">Framework</th>
-                                    <th class="px-4 py-3 font-bold">Setup</th>
-                                    <th class="px-4 py-3 font-bold">Control</th>
-                                    <th class="px-4 py-3 font-bold">Artifacts</th>
-                                    <th class="px-4 py-3 font-bold">TDD</th>
-                                    <th class="px-4 py-3 font-bold">Git/PR</th>
-                                    <th class="px-4 py-3 font-bold">Confidence</th>
-                                    <th class="px-4 py-3 font-bold">Best Fit From Run</th>
-                                </tr>
-                            </thead>
-                            <tbody id="execution-matrix-body" class="divide-y divide-slate-100">
-                                <!-- Dynamic rows -->
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden mb-6">
+                <div class="p-6 border-b border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-900">Outcome Comparison</h3>
+                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">Human evaluation answers were normalized as Yes, Partial, or No so the report can be scanned without reading every Markdown table.</p>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full min-w-[920px] text-left">
+                        <thead class="bg-slate-50 border-b border-slate-100">
+                            <tr class="text-[11px] uppercase tracking-wider text-slate-500">
+                                <th class="px-4 py-3 font-bold">Framework</th>
+                                <th class="px-4 py-3 font-bold">Setup</th>
+                                <th class="px-4 py-3 font-bold">Control</th>
+                                <th class="px-4 py-3 font-bold">Artifacts</th>
+                                <th class="px-4 py-3 font-bold">TDD</th>
+                                <th class="px-4 py-3 font-bold">Git/PR</th>
+                                <th class="px-4 py-3 font-bold">Confidence</th>
+                                <th class="px-4 py-3 font-bold">Best Fit From Run</th>
+                            </tr>
+                        </thead>
+                        <tbody id="execution-matrix-body" class="divide-y divide-slate-100">
+                            <!-- Dynamic rows -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
