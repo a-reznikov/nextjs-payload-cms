@@ -54,6 +54,41 @@
             border-radius: 9999px;
         }
 
+        .spec-flow {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(132px, 1fr));
+            gap: 0.85rem;
+            min-width: 1040px;
+        }
+
+        .spec-flow-step {
+            position: relative;
+            min-height: 176px;
+        }
+
+        .spec-flow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 2.6rem;
+            right: -0.85rem;
+            width: 0.85rem;
+            height: 2px;
+            background: #cbd5e1;
+        }
+
+        .spec-flow-step:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            top: 2.38rem;
+            right: -0.9rem;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 7px solid #cbd5e1;
+            z-index: 1;
+        }
+
         .workflow-step {
             position: relative;
             padding-left: 2.25rem;
@@ -150,6 +185,92 @@
                         <div class="chart-container">
                             <canvas id="capabilityRadar"></canvas>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BASE SPEC-DRIVEN FLOW SECTION -->
+        <section id="spec-driven-flow" class="mb-12">
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
+                <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-7">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Shared Development Model</span>
+                        <h2 class="text-2xl font-bold text-slate-800 tracking-tight mt-1">Base Spec-Driven Flow</h2>
+                        <p class="text-sm text-slate-600 max-w-3xl mt-2 leading-relaxed">
+                            The tested frameworks differ in commands, skills, artifacts, and automation depth, but the core pattern is the same: turn an idea into explicit requirements, break those requirements into executable tasks, implement, and verify the result against the spec.
+                        </p>
+                    </div>
+                    <div class="bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-sm">
+                        Tool-specific details live in each framework profile
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto custom-scrollbar pb-2">
+                    <div class="spec-flow">
+                        <div class="spec-flow-step bg-slate-50 border border-slate-200 rounded-xl p-4">
+                            <div class="w-8 h-8 rounded-full bg-slate-900 text-white text-xs font-black flex items-center justify-center mb-3">1</div>
+                            <h3 class="text-sm font-black text-slate-900">Idea</h3>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mt-1">Initial intent</p>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-3">Capture the feature, bug, user problem, or business goal in plain language.</p>
+                        </div>
+
+                        <div class="spec-flow-step bg-indigo-50 border border-indigo-100 rounded-xl p-4">
+                            <div class="w-8 h-8 rounded-full bg-indigo-600 text-white text-xs font-black flex items-center justify-center mb-3">2</div>
+                            <h3 class="text-sm font-black text-slate-900">Clarify</h3>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-indigo-500 mt-1">Scope decisions</p>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-3">Ask questions, identify edge cases, define non-goals, and remove ambiguity before writing tasks.</p>
+                        </div>
+
+                        <div class="spec-flow-step bg-amber-50 border border-amber-100 rounded-xl p-4">
+                            <div class="w-8 h-8 rounded-full bg-amber-500 text-white text-xs font-black flex items-center justify-center mb-3">3</div>
+                            <h3 class="text-sm font-black text-slate-900">Requirements / PRD</h3>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-amber-600 mt-1">Acceptance criteria</p>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-3">Convert the idea into visible behavior, constraints, success states, and testable outcomes.</p>
+                        </div>
+
+                        <div class="spec-flow-step bg-sky-50 border border-sky-100 rounded-xl p-4">
+                            <div class="w-8 h-8 rounded-full bg-sky-600 text-white text-xs font-black flex items-center justify-center mb-3">4</div>
+                            <h3 class="text-sm font-black text-slate-900">Plan / Design</h3>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-sky-600 mt-1">Technical path</p>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-3">Map files, APIs, data shape, UX states, risks, and the order of implementation.</p>
+                        </div>
+
+                        <div class="spec-flow-step bg-emerald-50 border border-emerald-100 rounded-xl p-4">
+                            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center mb-3">5</div>
+                            <h3 class="text-sm font-black text-slate-900">Tasks</h3>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-emerald-600 mt-1">Executable slices</p>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-3">Split work into small steps that can be implemented, reviewed, tested, and committed.</p>
+                        </div>
+
+                        <div class="spec-flow-step bg-rose-50 border border-rose-100 rounded-xl p-4">
+                            <div class="w-8 h-8 rounded-full bg-rose-500 text-white text-xs font-black flex items-center justify-center mb-3">6</div>
+                            <h3 class="text-sm font-black text-slate-900">Implementation</h3>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-rose-600 mt-1">Code changes</p>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-3">Build the feature from the task list, ideally with focused tests and incremental commits.</p>
+                        </div>
+
+                        <div class="spec-flow-step bg-violet-50 border border-violet-100 rounded-xl p-4">
+                            <div class="w-8 h-8 rounded-full bg-violet-600 text-white text-xs font-black flex items-center justify-center mb-3">7</div>
+                            <h3 class="text-sm font-black text-slate-900">Verify</h3>
+                            <p class="text-[11px] font-bold uppercase tracking-wider text-violet-600 mt-1">Spec alignment</p>
+                            <p class="text-xs text-slate-600 leading-relaxed mt-3">Run tests, inspect behavior, open the PR, and feed any mismatch back into the spec or tasks.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Core promise</p>
+                        <p class="text-sm font-semibold text-slate-800 mt-1">The spec is the source of truth before code is written.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Feedback loop</p>
+                        <p class="text-sm font-semibold text-slate-800 mt-1">Failed verification updates requirements, plan, or tasks instead of drifting silently.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                        <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">Framework layer</p>
+                        <p class="text-sm font-semibold text-slate-800 mt-1">Tools differ mainly in how they automate each stage.</p>
                     </div>
                 </div>
             </div>
