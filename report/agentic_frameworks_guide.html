@@ -272,6 +272,10 @@
                                 <p class="text-xs text-slate-600">Autonomous development targeting isolated codebases inside temporary Git worktrees.</p>
                                 <a href="https://github.com/obra/superpowers" target="_blank" rel="noreferrer" class="inline-flex mt-2 text-[11px] font-bold text-indigo-700 hover:text-indigo-900">Docs: obra/superpowers</a>
                             </div>
+                            <div class="p-3 border-l-4 border-sky-500 bg-sky-50/50 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">Codex Plan Mode</h4>
+                                <p class="text-xs text-slate-600">Built-in Codex planning flow that keeps the plan in chat, then implements, verifies, commits, and opens a PR after approval.</p>
+                            </div>
                             <div class="p-3 border-l-4 border-emerald-500 bg-emerald-50/50 rounded-r-lg">
                                 <h4 class="font-bold text-slate-800 text-sm">Taskmaster</h4>
                                 <p class="text-xs text-slate-600">Complexity-gated queues that route minor features to local agents & heavy features to cloud boards.</p>
@@ -310,6 +314,7 @@
             
             <div class="mb-6 flex overflow-x-auto border-b border-slate-200 custom-scrollbar pb-1">
                 <button onclick="switchFramework('superpowers')" id="btn-superpowers" class="tab-btn active-tab px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Superpowers</button>
+                <button onclick="switchFramework('codexplan')" id="btn-codexplan" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Codex Plan Mode</button>
                 <button onclick="switchFramework('taskmaster')" id="btn-taskmaster" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Taskmaster</button>
                 <button onclick="switchFramework('openspec')" id="btn-openspec" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">OpenSpec</button>
                 <button onclick="switchFramework('pocock')" id="btn-pocock" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Pocock Skills</button>
@@ -333,7 +338,7 @@
                     </p>
                 </div>
                 <div class="text-xs font-bold text-slate-600 bg-white border border-slate-200 px-3 py-2 rounded-lg shadow-sm">
-                    Tested runs: 4 frameworks
+                    Tested runs: 5 flows
                 </div>
             </div>
 
@@ -360,7 +365,7 @@
                     <table class="w-full min-w-[1120px] text-left">
                         <thead class="bg-slate-50 border-b border-slate-100">
                             <tr class="text-[11px] uppercase tracking-wider text-slate-500">
-                                <th class="px-4 py-3 font-bold">Framework</th>
+                                <th class="px-4 py-3 font-bold">Framework / Flow</th>
                                 <th class="px-4 py-3 font-bold">Setup</th>
                                 <th class="px-4 py-3 font-bold">Flow Control</th>
                                 <th class="px-4 py-3 font-bold">Automation Depth</th>
@@ -379,7 +384,7 @@
                 </div>
             </div>
 
-            <div id="execution-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div id="execution-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
                 <!-- Dynamic framework cards -->
             </div>
         </section>
@@ -396,7 +401,7 @@
                 <div class="border border-slate-100 rounded-xl p-5 bg-slate-50/70">
                     <p class="text-xs font-bold uppercase tracking-widest text-emerald-700">Best default</p>
                     <h4 class="text-base font-black text-slate-900 mt-2">OpenSpec</h4>
-                    <p class="text-xs text-slate-600 leading-relaxed mt-2">Most balanced result in this run: low reported cost, readable artifacts, and easy control. Git and PR steps still need human direction.</p>
+                    <p class="text-xs text-slate-600 leading-relaxed mt-2">Best spec-driven default in this run: readable artifacts, easy control, and low reported cost. Git and PR steps still need human direction.</p>
                 </div>
                 <div class="border border-slate-100 rounded-xl p-5 bg-slate-50/70">
                     <p class="text-xs font-bold uppercase tracking-widest text-indigo-700">Best for automation</p>
@@ -404,11 +409,14 @@
                     <p class="text-xs text-slate-600 leading-relaxed mt-2">Strongest execution loop with subagents, TDD, checks, and commits. Use it when the task is large enough to justify higher resource cost.</p>
                 </div>
                 <div class="border border-slate-100 rounded-xl p-5 bg-slate-50/70">
-                    <p class="text-xs font-bold uppercase tracking-widest text-amber-700">Use carefully</p>
-                    <h4 class="text-base font-black text-slate-900 mt-2">Pocock, Spec Kit, Taskmaster</h4>
-                    <p class="text-xs text-slate-600 leading-relaxed mt-2">Pocock Skills need a developer who knows the command order. Spec Kit creates heavy documentation. Taskmaster was not tested with the same flow and felt split between terminal task management and chat implementation.</p>
+                    <p class="text-xs font-bold uppercase tracking-widest text-sky-700">Best lightweight baseline</p>
+                    <h4 class="text-base font-black text-slate-900 mt-2">Codex Plan Mode</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed mt-2">Lowest reported weekly-limit cost and easiest setup. Use it for straightforward feature work, but expect weaker saved specs, TDD discipline, and restart visibility.</p>
                 </div>
             </div>
+            <p class="text-xs text-slate-500 leading-relaxed mt-4 max-w-4xl">
+                Pocock Skills need a developer who knows the command order. Spec Kit creates heavy documentation. Taskmaster was not tested with the same flow and felt split between terminal task management and chat implementation.
+            </p>
         </section>
 
         <!-- Footer -->
@@ -418,7 +426,7 @@
     </div>
 
     <script>
-        // Data containing all exact facts, workflows, commands, usages, and experiences for the five frameworks.
+        // Data containing all exact facts, workflows, commands, usages, and experiences for the six frameworks.
         const data = {
             superpowers: {
                 title: "Superpowers",
@@ -466,6 +474,53 @@
                 keyStrength: "Automatic test-driven rolled rollback execution loop preventing code damage.",
                 devX: "Good for larger tasks where planning, subagents, TDD checks, and frequent commits are worth the cost. Easy to approve next steps, but token usage was high and stopping mid-run required attention.",
                 nonDevX: "The flow is possible for PM/QA users because the agent explains the next step and verifies its work. They would still need help with cost, branch, pause, and PR decisions."
+            },
+            codexplan: {
+                title: "Codex Plan Mode",
+                themeColor: "#0284c7",
+                paradigm: "Built-In Conversational Planning and Execution",
+                workflow: [
+                    {
+                        name: "Request Understanding",
+                        desc: "Reads the user request, project guidance, component conventions, and existing implementation patterns before proposing the path.",
+                        command: "Plan mode"
+                    },
+                    {
+                        name: "Implementation Plan",
+                        desc: "Creates a clear implementation plan in chat, including component placement, API route shape, validation, and tests.",
+                        command: "Chat plan"
+                    },
+                    {
+                        name: "Direct Implementation",
+                        desc: "Applies the approved plan directly to the active workspace using focused file edits.",
+                        command: "apply_patch"
+                    },
+                    {
+                        name: "Targeted Verification",
+                        desc: "Runs lint, route tests, Playwright, and build checks where possible, then records external blockers.",
+                        command: "npm / npx checks"
+                    },
+                    {
+                        name: "Git Snapshot",
+                        desc: "Creates a branch, stages files, and commits after explicit human direction and approval.",
+                        command: "git branch / git commit"
+                    },
+                    {
+                        name: "PR Preparation",
+                        desc: "Prepares and opens a pull request after approval, then fixes follow-up issues reported by the user.",
+                        command: "gh pr create"
+                    }
+                ],
+                usage: "Use the default Codex planning flow in chat: ask for a plan, approve the direction, then let Codex implement and verify the change.",
+                integration: "No external framework setup is required beyond the existing Codex workspace, repository instructions, and project skills.",
+                quickFacts: {
+                    branchSafety: "Moderate (Works in the active workspace and creates a branch only after being asked)",
+                    specRequired: "Low (Plan lives in chat rather than stored repository artifacts)",
+                    cloudDep: "None for this run (Used the local Codex workspace and repository commands)"
+                },
+                keyStrength: "Lowest reported weekly-limit cost with very little setup overhead.",
+                devX: "Helpful and low-friction for a normal implementation. It handled code, verification, commit, and PR work with little input, but visibility and restart behavior were weaker because no plan artifacts were saved.",
+                nonDevX: "The flow can work for PM/QA users because it does not require special framework commands. They still need developer support for reviewing bugs, approvals, and Git/PR decisions."
             },
             taskmaster: {
                 title: "Taskmaster",
@@ -718,6 +773,40 @@
                 friction: "Highest resource cost and still needed human nudges for branch creation, pausing, and PR creation."
             },
             {
+                id: "codexplan",
+                title: "Codex Plan Mode",
+                color: data.codexplan.themeColor,
+                source: "codex-plan-mode-execution-report.md",
+                contextConsumed: 27,
+                weeklyLimitConsumed: 3,
+                stepCount: 35,
+                setup: "Yes",
+                control: "Partial",
+                automationDepth: "Partial",
+                artifacts: "Partial",
+                tdd: "No",
+                gitPr: "Partial",
+                pmFit: "Yes",
+                confidence: "Partial",
+                tips: {
+                    setup: "No external framework setup was needed; it used Codex, project guidance, and existing skills directly.",
+                    control: "It moved into implementation and committed changes automatically, so process visibility and steering were only partial.",
+                    automationDepth: "It implemented, verified, committed, pushed, and opened a PR after approval, but did not suggest next steps or use subagents.",
+                    artifacts: "The plan was clear in chat, but it was not stored in the repo and there was no documentation artifact.",
+                    tdd: "The workflow did not clearly follow a red, green, refactor sequence.",
+                    gitPr: "Branch creation and PR opening happened only after explicit human requests; there were no intermediate workflow commits.",
+                    pmFit: "No special framework commands were needed, so the report marks the exact flow as PM/QA friendly.",
+                    confidence: "A UI bug was found after implementation, and lack of saved docs made restart behavior less clear."
+                },
+                prNumber: 29,
+                prTitle: "Codex-Plan-Mode: Add class registration modal",
+                prUrl: "https://github.com/a-reznikov/nextjs-payload-cms/pull/29",
+                prMeta: "Opened PR",
+                fit: "Low-overhead feature work where the team wants Codex to plan in chat, implement directly, and avoid framework setup.",
+                strength: "Lowest reported weekly-limit cost and the simplest setup path.",
+                friction: "No saved spec artifacts, no clear TDD loop, and weaker visibility when resuming across chats."
+            },
+            {
                 id: "openspec",
                 title: "OpenSpec",
                 color: data.openspec.themeColor,
@@ -824,7 +913,7 @@
         const executionHighlights = [
             {
                 label: "Lowest weekly-limit cost",
-                value: "OpenSpec - 4%",
+                value: "Codex Plan Mode - 3%",
                 detail: "Completed the flow with the smallest reported 7-day limit delta."
             },
             {
@@ -1203,6 +1292,14 @@
                             data: [95, 60, 40, 85, 50],
                             borderColor: data.superpowers.themeColor,
                             backgroundColor: 'rgba(99, 102, 241, 0.05)',
+                            borderWidth: 2,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'Codex Plan Mode',
+                            data: [60, 35, 70, 60, 90],
+                            borderColor: data.codexplan.themeColor,
+                            backgroundColor: 'rgba(2, 132, 199, 0.05)',
                             borderWidth: 2,
                             pointRadius: 3
                         },
