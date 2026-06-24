@@ -166,6 +166,186 @@ describe('class registration modal', () => {
       }),
     })
   })
+
+  it('shows a success state with returned class registration data after submit', async () => {
+    fetchMock.mockResolvedValueOnce(
+      new Response(
+        JSON.stringify({
+          data: {
+            firstName: 'Jane',
+            lastName: 'Doe',
+            email: 'jane@example.com',
+            phone: '+123456789',
+            address: '123 Harbor Street',
+            plz: '8000',
+            city: 'Zurich',
+            sailingClub: 'Lake Club',
+            boatNumber: 'SUI 42',
+          },
+        }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      ),
+    )
+
+    container = document.createElement('div')
+    document.body.appendChild(container)
+    root = createRoot(container)
+
+    await act(async () => {
+      root?.render(
+        React.createElement(Home, {
+          adminRoute: '/admin',
+          fileURL: 'vscode://file/app/(frontend)/page.tsx',
+        }),
+      )
+    })
+
+    const trigger = Array.from(container.querySelectorAll('button')).find(
+      (button) => button.textContent === 'Register for class',
+    )
+
+    await act(async () => {
+      trigger?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    fillRequiredFields(container)
+
+    const submitButton = Array.from(container.querySelectorAll('button')).find(
+      (button) => button.textContent === 'Submit',
+    )
+
+    await act(async () => {
+      submitButton?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    expect(container.textContent).toContain('Registration received')
+    expect(container.textContent).toContain('jane@example.com')
+    expect(container.textContent).toContain('SUI 42')
+  })
+
+  it('shows an inline error when submit fails', async () => {
+    fetchMock.mockResolvedValueOnce(
+      new Response(JSON.stringify({ error: 'First name is required.' }), {
+        status: 400,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    )
+
+    container = document.createElement('div')
+    document.body.appendChild(container)
+    root = createRoot(container)
+
+    await act(async () => {
+      root?.render(
+        React.createElement(Home, {
+          adminRoute: '/admin',
+          fileURL: 'vscode://file/app/(frontend)/page.tsx',
+        }),
+      )
+    })
+
+    const trigger = Array.from(container.querySelectorAll('button')).find(
+      (button) => button.textContent === 'Register for class',
+    )
+
+    await act(async () => {
+      trigger?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    fillRequiredFields(container)
+
+    const submitButton = Array.from(container.querySelectorAll('button')).find(
+      (button) => button.textContent === 'Submit',
+    )
+
+    await act(async () => {
+      submitButton?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    expect(container.textContent).toContain('First name is required.')
+  })
+
+  it('shows a loading state and prevents duplicate submits while the request is running', async () => {
+    let resolveResponse: ((value: Response) => void) | null = null
+    fetchMock.mockImplementationOnce(
+      () =>
+        new Promise<Response>((resolve) => {
+          resolveResponse = resolve
+        }),
+    )
+
+    container = document.createElement('div')
+    document.body.appendChild(container)
+    root = createRoot(container)
+
+    await act(async () => {
+      root?.render(
+        React.createElement(Home, {
+          adminRoute: '/admin',
+          fileURL: 'vscode://file/app/(frontend)/page.tsx',
+        }),
+      )
+    })
+
+    const trigger = Array.from(container.querySelectorAll('button')).find(
+      (button) => button.textContent === 'Register for class',
+    )
+
+    await act(async () => {
+      trigger?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    fillRequiredFields(container)
+
+    const submitButton = Array.from(container.querySelectorAll('button')).find(
+      (button) => button.textContent === 'Submit',
+    ) as HTMLButtonElement | undefined
+
+    await act(async () => {
+      submitButton?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    })
+
+    const pendingButton = Array.from(container.querySelectorAll('button')).find(
+      (button) => button.textContent === 'Sending...',
+    ) as HTMLButtonElement | undefined
+
+    expect(pendingButton).toBeDefined()
+    expect(pendingButton?.disabled).toBe(true)
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+
+    await act(async () => {
+      resolveResponse?.(
+        new Response(
+          JSON.stringify({
+            data: {
+              firstName: 'Jane',
+              lastName: 'Doe',
+              email: 'jane@example.com',
+              phone: '+123456789',
+              address: '123 Harbor Street',
+              plz: '8000',
+              city: 'Zurich',
+              sailingClub: 'Lake Club',
+              boatNumber: 'SUI 42',
+            },
+          }),
+          {
+            status: 200,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        ),
+      )
+    })
+  })
 })
 
 function getInputForLabel(container: HTMLDivElement, labelText: string) {
@@ -182,4 +362,16 @@ function setInputValue(input: HTMLInputElement | null | undefined, value: string
   input.value = value
   input.dispatchEvent(new Event('input', { bubbles: true }))
   input.dispatchEvent(new Event('change', { bubbles: true }))
+}
+
+function fillRequiredFields(container: HTMLDivElement) {
+  setInputValue(getInputForLabel(container, 'First name'), 'Jane')
+  setInputValue(getInputForLabel(container, 'Last name'), 'Doe')
+  setInputValue(getInputForLabel(container, 'Email'), 'jane@example.com')
+  setInputValue(getInputForLabel(container, 'Phone'), '+123456789')
+  setInputValue(getInputForLabel(container, 'Address'), '123 Harbor Street')
+  setInputValue(getInputForLabel(container, 'Plz'), '8000')
+  setInputValue(getInputForLabel(container, 'City'), 'Zurich')
+  setInputValue(getInputForLabel(container, 'Sailing club'), 'Lake Club')
+  setInputValue(getInputForLabel(container, 'Boat number (optional)'), 'SUI 42')
 }
