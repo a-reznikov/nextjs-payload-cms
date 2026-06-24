@@ -36,6 +36,24 @@
             height: 380px;
         }
 
+        .execution-chart-container {
+            position: relative;
+            width: 100%;
+            min-height: 320px;
+        }
+
+        .metric-bar {
+            height: 0.65rem;
+            overflow: hidden;
+            border-radius: 9999px;
+            background: #e2e8f0;
+        }
+
+        .metric-fill {
+            height: 100%;
+            border-radius: 9999px;
+        }
+
         .workflow-step {
             position: relative;
             padding-left: 2.25rem;
@@ -134,6 +152,66 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- REAL EXECUTION COMPARISON SECTION -->
+        <section id="real-execution" class="mb-12">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Report-Based Comparison</span>
+                    <h2 class="text-2xl font-bold text-slate-800 tracking-tight mt-1">Real Execution Matrix</h2>
+                    <p class="text-sm text-slate-600 max-w-3xl mt-2 leading-relaxed">
+                        This view is based on the completed execution reports in the <span class="code-font">report/</span> directory. Taskmaster is intentionally excluded because it was not tested in the same execution flow.
+                    </p>
+                </div>
+                <div class="text-xs font-bold text-slate-600 bg-white border border-slate-200 px-3 py-2 rounded-lg shadow-sm">
+                    Tested runs: 4 frameworks
+                </div>
+            </div>
+
+            <div id="execution-highlights" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+                <!-- Dynamic highlight cards -->
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-5 gap-6 mb-6">
+                <div class="xl:col-span-2 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                    <h3 class="text-lg font-bold text-slate-900">Resource Cost vs. Run Size</h3>
+                    <p class="text-xs text-slate-500 mt-1 mb-4 leading-relaxed">Lower weekly-limit consumption is better. Step count shows how much process the human had to follow or review.</p>
+                    <div class="execution-chart-container">
+                        <canvas id="executionResourceChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="xl:col-span-3 bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-slate-100">
+                        <h3 class="text-lg font-bold text-slate-900">Outcome Comparison</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">Human evaluation answers were normalized as Yes, Partial, or No so the report can be scanned without reading every Markdown table.</p>
+                    </div>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full min-w-[920px] text-left">
+                            <thead class="bg-slate-50 border-b border-slate-100">
+                                <tr class="text-[11px] uppercase tracking-wider text-slate-500">
+                                    <th class="px-4 py-3 font-bold">Framework</th>
+                                    <th class="px-4 py-3 font-bold">Setup</th>
+                                    <th class="px-4 py-3 font-bold">Control</th>
+                                    <th class="px-4 py-3 font-bold">Artifacts</th>
+                                    <th class="px-4 py-3 font-bold">TDD</th>
+                                    <th class="px-4 py-3 font-bold">Git/PR</th>
+                                    <th class="px-4 py-3 font-bold">Confidence</th>
+                                    <th class="px-4 py-3 font-bold">Best Fit From Run</th>
+                                </tr>
+                            </thead>
+                            <tbody id="execution-matrix-body" class="divide-y divide-slate-100">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="execution-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+                <!-- Dynamic framework cards -->
             </div>
         </section>
 
@@ -495,6 +573,260 @@
             }
         };
 
+        const executionData = [
+            {
+                id: "superpowers",
+                title: "Superpowers",
+                color: data.superpowers.themeColor,
+                source: "superpowers-execution-report.md",
+                contextConsumed: 56,
+                weeklyLimitConsumed: 17,
+                stepCount: 39,
+                setup: "Yes",
+                control: "Partial",
+                artifacts: "Yes",
+                tdd: "Yes",
+                gitPr: "Partial",
+                confidence: "Partial",
+                fit: "Large implementation where autonomous subagents and TDD checks justify higher cost.",
+                strength: "Strongest automation: subagents, TDD loop, many intermediate commits, and final PR creation.",
+                friction: "Highest resource cost and still needed human nudges for branch creation, pausing, and PR creation."
+            },
+            {
+                id: "openspec",
+                title: "OpenSpec",
+                color: data.openspec.themeColor,
+                source: "openspec-execution-report.md",
+                contextConsumed: 48,
+                weeklyLimitConsumed: 4,
+                stepCount: 25,
+                setup: "Yes",
+                control: "Yes",
+                artifacts: "Yes",
+                tdd: "Unrated",
+                gitPr: "No",
+                confidence: "Yes",
+                fit: "Structured feature work where readable specs and low resource usage matter more than deep automation.",
+                strength: "Best resource efficiency in the reports and a clear, controllable spec-first flow.",
+                friction: "Branching, commits, and PR creation remained mostly manual and it did not orchestrate subagents."
+            },
+            {
+                id: "pocock",
+                title: "Pocock Skills",
+                color: data.pocock.themeColor,
+                source: "matt-pocock-skills-execution-report.md",
+                contextConsumed: 57,
+                weeklyLimitConsumed: 8,
+                stepCount: 36,
+                setup: "Partial",
+                control: "Yes",
+                artifacts: "Partial",
+                tdd: "Partial",
+                gitPr: "Partial",
+                confidence: "No",
+                fit: "Developer-led workflow where the user knows which skills to call and wants strong planning prompts.",
+                strength: "Excellent questioning and issue breakdown once the PRD -> issues -> TDD path was made explicit.",
+                friction: "Flow was unclear by default, skipped the intended process at first, and was not PM-friendly."
+            },
+            {
+                id: "speckit",
+                title: "GitHub Spec Kit",
+                color: data.speckit.themeColor,
+                source: "speckit-execution-report.md",
+                contextConsumed: 45,
+                weeklyLimitConsumed: 5,
+                stepCount: 34,
+                setup: "No",
+                control: "Yes",
+                artifacts: "No",
+                tdd: "No",
+                gitPr: "No",
+                confidence: "No",
+                fit: "Greenfield or heavily governed work where a large spec artifact tree is acceptable.",
+                strength: "Most complete document chain and full automated verification including integration and E2E tests.",
+                friction: "Heavy artifact volume, extra boilerplate, dependency friction, and unclear cleanup/commit guidance."
+            }
+        ];
+
+        const executionHighlights = [
+            {
+                label: "Lowest weekly-limit cost",
+                value: "OpenSpec - 4%",
+                detail: "Completed the flow with the smallest reported 7-day limit delta."
+            },
+            {
+                label: "Highest automation depth",
+                value: "Superpowers",
+                detail: "Used subagents, TDD-oriented execution, intermediate commits, and PR automation."
+            },
+            {
+                label: "Most controllable flow",
+                value: "OpenSpec",
+                detail: "Reported as easy to steer, pause, correct, and run unattended."
+            },
+            {
+                label: "Most documentation-heavy",
+                value: "Spec Kit",
+                detail: "Generated the broadest artifact tree, which reduced readability in this run."
+            }
+        ];
+
+        function statusChip(status) {
+            const classes = {
+                Yes: "bg-emerald-50 text-emerald-700 border-emerald-200",
+                Partial: "bg-amber-50 text-amber-700 border-amber-200",
+                No: "bg-rose-50 text-rose-700 border-rose-200",
+                Unrated: "bg-slate-50 text-slate-500 border-slate-200"
+            };
+
+            return `<span class="inline-flex items-center justify-center min-w-[64px] px-2 py-1 rounded-full border text-[11px] font-bold ${classes[status] || classes.Unrated}">${status}</span>`;
+        }
+
+        function renderExecutionComparison() {
+            const highlightContainer = document.getElementById('execution-highlights');
+            highlightContainer.innerHTML = executionHighlights.map(item => `
+                <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                    <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400">${item.label}</p>
+                    <p class="text-xl font-black text-slate-900 mt-2">${item.value}</p>
+                    <p class="text-xs text-slate-500 leading-relaxed mt-2">${item.detail}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('execution-matrix-body').innerHTML = executionData.map(item => `
+                <tr class="text-xs text-slate-600 align-top hover:bg-slate-50/80 transition">
+                    <td class="px-4 py-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${item.color}"></span>
+                            <div>
+                                <p class="font-black text-slate-900">${item.title}</p>
+                                <p class="text-[10px] text-slate-400 code-font">${item.source}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-4">${statusChip(item.setup)}</td>
+                    <td class="px-4 py-4">${statusChip(item.control)}</td>
+                    <td class="px-4 py-4">${statusChip(item.artifacts)}</td>
+                    <td class="px-4 py-4">${statusChip(item.tdd)}</td>
+                    <td class="px-4 py-4">${statusChip(item.gitPr)}</td>
+                    <td class="px-4 py-4">${statusChip(item.confidence)}</td>
+                    <td class="px-4 py-4 max-w-[270px] leading-relaxed">${item.fit}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('execution-cards').innerHTML = executionData.map(item => `
+                <article class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col gap-4">
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <p class="text-lg font-black text-slate-900">${item.title}</p>
+                            <p class="text-[10px] uppercase tracking-wider font-bold text-slate-400">${item.stepCount} reported steps</p>
+                        </div>
+                        <span class="w-3 h-3 rounded-full mt-1" style="background-color: ${item.color}"></span>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-[11px] font-bold text-slate-500 mb-1">
+                            <span>Context consumed</span>
+                            <span>${item.contextConsumed}%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: ${item.contextConsumed}%; background-color: ${item.color};"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-[11px] font-bold text-slate-500 mb-1">
+                            <span>7-day limit consumed</span>
+                            <span>${item.weeklyLimitConsumed}%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill" style="width: ${item.weeklyLimitConsumed}%; background-color: ${item.color};"></div>
+                        </div>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100">
+                        <p class="text-[11px] font-bold uppercase tracking-widest text-emerald-600 mb-1">Worked Well</p>
+                        <p class="text-xs leading-relaxed text-slate-600">${item.strength}</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] font-bold uppercase tracking-widest text-rose-600 mb-1">Main Friction</p>
+                        <p class="text-xs leading-relaxed text-slate-600">${item.friction}</p>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        let executionChartInstance = null;
+        function initExecutionResourceChart() {
+            const ctx = document.getElementById('executionResourceChart').getContext('2d');
+
+            executionChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: executionData.map(item => item.title),
+                    datasets: [
+                        {
+                            label: 'Context consumed %',
+                            data: executionData.map(item => item.contextConsumed),
+                            backgroundColor: executionData.map(item => item.color + '33'),
+                            borderColor: executionData.map(item => item.color),
+                            borderWidth: 1.5,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '7-day limit consumed %',
+                            data: executionData.map(item => item.weeklyLimitConsumed),
+                            backgroundColor: '#0f172a22',
+                            borderColor: '#0f172a',
+                            borderWidth: 1.5,
+                            yAxisID: 'y'
+                        },
+                        {
+                            type: 'line',
+                            label: 'Reported steps',
+                            data: executionData.map(item => item.stepCount),
+                            borderColor: '#64748b',
+                            backgroundColor: '#64748b',
+                            pointRadius: 4,
+                            tension: 0.3,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            suggestedMax: 65,
+                            grid: { color: '#e2e8f0' },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        },
+                        y1: {
+                            beginAtZero: true,
+                            suggestedMax: 45,
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#475569', font: { size: 10, weight: 'bold' } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 12,
+                                color: '#334155',
+                                font: { size: 10, weight: 'bold' }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
         function switchFramework(id) {
             const fw = data[id];
             
@@ -724,6 +1056,8 @@
         // START ON LOAD
         window.onload = function () {
             initRadar();
+            renderExecutionComparison();
+            initExecutionResourceChart();
             // Default select Spec Kit so the user can inspect its detailed flow immediately
             switchFramework('speckit');
         }
