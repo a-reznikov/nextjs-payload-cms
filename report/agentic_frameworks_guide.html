@@ -334,16 +334,18 @@
                     <p class="text-xs text-slate-500 mt-1 leading-relaxed">Human evaluation answers were normalized as Yes, Partial, or No so the report can be scanned without reading every Markdown table.</p>
                 </div>
                 <div class="overflow-x-auto custom-scrollbar">
-                    <table class="w-full min-w-[920px] text-left">
+                    <table class="w-full min-w-[1120px] text-left">
                         <thead class="bg-slate-50 border-b border-slate-100">
                             <tr class="text-[11px] uppercase tracking-wider text-slate-500">
                                 <th class="px-4 py-3 font-bold">Framework</th>
                                 <th class="px-4 py-3 font-bold">Setup</th>
-                                <th class="px-4 py-3 font-bold">Control</th>
-                                <th class="px-4 py-3 font-bold">Artifacts</th>
-                                <th class="px-4 py-3 font-bold">TDD</th>
-                                <th class="px-4 py-3 font-bold">Git/PR</th>
-                                <th class="px-4 py-3 font-bold">Confidence</th>
+                                <th class="px-4 py-3 font-bold">Flow Control</th>
+                                <th class="px-4 py-3 font-bold">Automation Depth</th>
+                                <th class="px-4 py-3 font-bold">Spec / Artifact Clarity</th>
+                                <th class="px-4 py-3 font-bold">TDD Discipline</th>
+                                <th class="px-4 py-3 font-bold">Git / PR Flow</th>
+                                <th class="px-4 py-3 font-bold">PM Fit</th>
+                                <th class="px-4 py-3 font-bold">Unattended Confidence</th>
                                 <th class="px-4 py-3 font-bold">Best Fit From Run</th>
                             </tr>
                         </thead>
@@ -684,9 +686,11 @@
                 stepCount: 39,
                 setup: "Yes",
                 control: "Partial",
+                automationDepth: "Yes",
                 artifacts: "Yes",
                 tdd: "Yes",
                 gitPr: "Partial",
+                pmFit: "Yes",
                 confidence: "Partial",
                 prNumber: 22,
                 prTitle: "Superpowers: Add register for class modal flow",
@@ -706,9 +710,11 @@
                 stepCount: 25,
                 setup: "Yes",
                 control: "Yes",
+                automationDepth: "Partial",
                 artifacts: "Yes",
                 tdd: "Partial",
                 gitPr: "No",
+                pmFit: "Partial",
                 confidence: "Yes",
                 prNumber: 23,
                 prTitle: "Open-spec: add class registration modal flow",
@@ -728,9 +734,11 @@
                 stepCount: 36,
                 setup: "Partial",
                 control: "Yes",
+                automationDepth: "Partial",
                 artifacts: "Partial",
                 tdd: "Partial",
                 gitPr: "Partial",
+                pmFit: "No",
                 confidence: "No",
                 prNumber: 28,
                 prTitle: "Matt Pocock: add Class Registration homepage flow",
@@ -750,9 +758,11 @@
                 stepCount: 34,
                 setup: "No",
                 control: "Yes",
+                automationDepth: "Partial",
                 artifacts: "No",
                 tdd: "No",
                 gitPr: "No",
+                pmFit: "Partial",
                 confidence: "No",
                 prNumber: 21,
                 prTitle: "Spec-kit: add register for class flow",
@@ -821,9 +831,11 @@
                     </td>
                     <td class="px-4 py-4">${statusChip(item.setup)}</td>
                     <td class="px-4 py-4">${statusChip(item.control)}</td>
+                    <td class="px-4 py-4">${statusChip(item.automationDepth)}</td>
                     <td class="px-4 py-4">${statusChip(item.artifacts)}</td>
                     <td class="px-4 py-4">${statusChip(item.tdd)}</td>
                     <td class="px-4 py-4">${statusChip(item.gitPr)}</td>
+                    <td class="px-4 py-4">${statusChip(item.pmFit)}</td>
                     <td class="px-4 py-4">${statusChip(item.confidence)}</td>
                     <td class="px-4 py-4 max-w-[270px] leading-relaxed">${item.fit}</td>
                 </tr>
