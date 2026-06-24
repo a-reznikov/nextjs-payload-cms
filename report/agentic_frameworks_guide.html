@@ -359,32 +359,6 @@
             </div>
         </section>
 
-        <!-- ACCESSIBILITY SECTION -->
-        <section class="bg-slate-900 text-white p-8 rounded-2xl mb-12">
-            <h2 class="text-2xl font-bold mb-2 tracking-tight">Accessibility Analysis Matrix</h2>
-            <p class="text-slate-400 mb-8 text-sm">Each framework caters to different engineering demographics. Use this structured matrix to see where constraints and learning curves sit for both developers and non-technical stakeholders.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700/50 shadow-sm">
-                    <h3 class="text-lg font-bold mb-4 flex items-center text-emerald-400">
-                        <span class="mr-2">💻</span> Developer Experience (DevX)
-                    </h3>
-                    <div id="dev-content" class="text-slate-300 text-sm space-y-4 leading-relaxed">
-                        <!-- Content updated dynamically on tab switch -->
-                    </div>
-                </div>
-                
-                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700/50 shadow-sm">
-                    <h3 class="text-lg font-bold mb-4 flex items-center text-amber-400">
-                        <span class="mr-2">🎨</span> Non-Technical / PM Experience (Non-DevX)
-                    </h3>
-                    <div id="nondev-content" class="text-slate-300 text-sm space-y-4 leading-relaxed">
-                        <!-- Content updated dynamically on tab switch -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- DECISION LOGIC SELECTOR -->
         <section class="bg-gradient-to-br from-indigo-50 to-slate-100 p-6 md:p-8 rounded-2xl border border-slate-200/80 mb-12">
             <div class="max-w-3xl">
@@ -481,8 +455,8 @@
                     cloudDep: "None (Operates 100% locally on standard command line environments)"
                 },
                 keyStrength: "Automatic test-driven rolled rollback execution loop preventing code damage.",
-                devX: "Designed strictly for shell developers. Avoids graphical bloat, allowing engineers to spawn complex features without moving away from conversational command bars.",
-                nonDevX: "Steep adoption barrier. Possesses zero external visualization, making it hard for product managers or non-technical coordinators to review task progress."
+                devX: "Good for larger tasks where planning, subagents, TDD checks, and frequent commits are worth the cost. Easy to approve next steps, but token usage was high and stopping mid-run required attention.",
+                nonDevX: "The flow is possible for PM/QA users because the agent explains the next step and verifies its work. They would still need help with cost, branch, pause, and PR decisions."
             },
             taskmaster: {
                 title: "Taskmaster",
@@ -528,8 +502,8 @@
                     cloudDep: "Optional (Supports local execution with optional Hamster Studio syncing)"
                 },
                 keyStrength: "Algorithmic complexity gating (automatically routes and splits complex tasks).",
-                devX: "Significantly reduces coordination fatigue. The local task list is easily managed with simple key commands, automating iterative test and lint fixes.",
-                nonDevX: "Highly accessible. The web-based Hamster dashboard gives product managers and stakeholders clear visibility into the running agent loop without terminal exposure."
+                devX: "Harder to use in practice than expected. Planning and task management happened through the global terminal, while implementation still happened in chat, so it did not feel like one clear instrument for driving the AI flow. Setup also needs an AI API key for the terminal tool.",
+                nonDevX: "Not evaluated with the same execution prompt as the other tools. The terminal setup, API-key requirement, and split between task commands and chat make it unlikely to be self-serve for PM/QA users without developer help."
             },
             openspec: {
                 title: "OpenSpec",
@@ -585,8 +559,8 @@
                     cloudDep: "None (Runs entirely locally inside project directories)"
                 },
                 keyStrength: "Delta specification merging (keeps system specs updated without manual drift).",
-                devX: "Fits perfectly into code review habits. Keeps change proposals compact, clean, and decoupled from primary master specs until deployment merges.",
-                nonDevX: "Excellent for product owners. Requirements are stated in readable 'GIVEN-WHEN-THEN' blocks, making it easy to audit specifications without reading source files."
+                devX: "Clear and steady spec-first flow. It was easy to steer, pause, rerun, and fix after feedback. The main gaps were manual branch, commit, and PR steps.",
+                nonDevX: "Readable specs make review easier. Running the full flow still requires command choices and some documentation reading, so PM/QA users may need developer support."
             },
             pocock: {
                 title: "Pocock's Skills",
@@ -642,8 +616,8 @@
                     cloudDep: "None (Completely local, file-based prompt sheets)"
                 },
                 keyStrength: "Zero-dependency setup (integrates seamlessly into any custom IDE prompt flow).",
-                devX: "Acts as an automated Senior Engineer in your IDE. Prompts force the agent to slow down, explore edge cases, and run tests before implementing complex logic.",
-                nonDevX: "Highly manual. Requires direct familiarity with test setups and CLI commands, offering little value to non-programmers."
+                devX: "Useful once the path is explicit: grilling, PRD, issues, then TDD. The default flow was unclear and needed redirection before it became reliable.",
+                nonDevX: "Not a self-serve PM/QA flow yet. Too much depends on knowing which skill to call and how to manage issues, branches, and follow-up work."
             },
             speckit: {
                 title: "GitHub Spec Kit",
@@ -694,8 +668,8 @@
                     cloudDep: "Optional (Connects with GitHub boards for ticket sync, with local fallback)"
                 },
                 keyStrength: "Consensus-based spec execution (ensures code matches specs before committing).",
-                devX: "Very organized. Provides a repeatable workflow that eliminates 'vibe coding'. However, introduces documentation overhead and requires mental tracking of multi-stage sequential commands.",
-                nonDevX: "Excellent for project managers. Specifications and plans are documented in readable markdown files, keeping the team in sync on the repository's intent."
+                devX: "Structured but heavy. It generated many files and needed dependency/script fixes. Verification was strong, but the process was hard to read and did not feel safe unattended.",
+                nonDevX: "The documents are readable, but the full flow is not self-contained. PM/QA users would still need help with branch, commit, PR, and cleanup decisions."
             }
         };
 
@@ -1056,12 +1030,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
+                            <p class="text-xs font-bold uppercase text-emerald-600 mb-2">Developer Experience</p>
+                            <p class="text-sm font-medium text-slate-700 leading-relaxed">${fw.devX}</p>
+                        </div>
+                        <div class="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm">
+                            <p class="text-xs font-bold uppercase text-amber-600 mb-2">PM / Non-Developer Experience</p>
+                            <p class="text-sm font-medium text-slate-700 leading-relaxed">${fw.nonDevX}</p>
+                        </div>
+                    </div>
                 </div>
             `;
-
-            // Hydrate accessibility matrix cards dynamically
-            document.getElementById('dev-content').innerHTML = `<p class="leading-relaxed">${fw.devX}</p>`;
-            document.getElementById('nondev-content').innerHTML = `<p class="leading-relaxed">${fw.nonDevX}</p>`;
         }
 
         function calculateRecommendation() {
@@ -1203,8 +1184,8 @@
             initRadar();
             renderExecutionComparison();
             initExecutionResourceChart();
-            // Default select Spec Kit so the user can inspect its detailed flow immediately
-            switchFramework('speckit');
+            // Default to the first framework shown in the navigator order.
+            switchFramework('superpowers');
         }
     </script>
 </body>
