@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Workflow Orchestration Analysis</title>
+    <!-- Tailwind CSS for modern, adaptive utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for rendering the comparative radar chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+
+        :root {
+            --bg-main: #f8fafc;
+            --accent: #0f172a;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: #334155;
+            scroll-behavior: smooth;
+        }
+
+        .code-font { font-family: 'Fira Code', monospace; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 380px;
+        }
+
+        .workflow-step {
+            position: relative;
+            padding-left: 2.25rem;
+        }
+        .workflow-step::before {
+            content: '';
+            position: absolute;
+            left: 0.55rem;
+            top: 0.25rem;
+            bottom: -1.25rem;
+            width: 2px;
+            background: var(--border);
+        }
+        .workflow-step:last-child::before { display: none; }
+        .step-node {
+            position: absolute;
+            left: 0;
+            top: 0.125rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .active-tab {
+            border-bottom: 2px solid #0f172a;
+            color: #0f172a;
+            font-weight: 700;
+            background-color: #f1f5f9;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-10 border-b border-slate-200 pb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">Comparative Analysis</span>
+                <h1 class="text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">Agentic Workflow Frameworks</h1>
+                <p class="text-lg text-slate-600 max-w-3xl mt-1">An architectural and execution evaluation of orchestration tools designed to steer AI agents from raw requirements to production code.</p>
+            </div>
+            <div class="bg-slate-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm">
+                Last Updated: June 2026
+            </div>
+        </header>
+
+        <!-- OVERVIEW RADAR CHART SECTION -->
+        <section id="overview" class="mb-12">
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 mb-8">
+                <div class="flex flex-col lg:flex-row gap-8 items-center">
+                    <div class="w-full lg:w-1/2">
+                        <h2 class="text-2xl font-bold mb-3 text-slate-800 tracking-tight">Architectural Profiles</h2>
+                        <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                            These profiles showcase how frameworks strike balances between <strong>Spec Rigor</strong>, <strong>Autonomy</strong>, <strong>Safety</strong>, <strong>Collaboration</strong>, and <strong>Flexibility</strong>. Compare metrics in the interactive radar chart to see which paradigm best aligns with your team's development pipeline.
+                        </p>
+                        
+                        <div class="space-y-3">
+                            <div class="p-3 border-l-4 border-indigo-500 bg-indigo-50/50 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">Superpowers</h4>
+                                <p class="text-xs text-slate-600">Autonomous development targeting isolated codebases inside temporary Git worktrees.</p>
+                            </div>
+                            <div class="p-3 border-l-4 border-emerald-500 bg-emerald-50/50 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">Taskmaster</h4>
+                                <p class="text-xs text-slate-600">Complexity-gated queues that route minor features to local agents & heavy features to cloud boards.</p>
+                            </div>
+                            <div class="p-3 border-l-4 border-amber-500 bg-amber-50/50 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">OpenSpec</h4>
+                                <p class="text-xs text-slate-600">Delta-based spec updates designed for cross-team alignment and branch merge protection.</p>
+                            </div>
+                            <div class="p-3 border-l-4 border-red-500 bg-rose-50/50 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">Pocock Skills</h4>
+                                <p class="text-xs text-slate-600">Portable prompts and rules configurations designed to pair directly inside IDE conversational buffers.</p>
+                            </div>
+                            <div class="p-3 border-l-4 border-slate-900 bg-slate-100 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">GitHub Spec Kit</h4>
+                                <p class="text-xs text-slate-600">Spec-driven development utilizing standardized document handoffs and multi-agent execution steps.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-1/2 flex flex-col items-center">
+                        <div class="chart-container">
+                            <canvas id="capabilityRadar"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DYNAMIC FRAMEWORK NAVIGATOR SECTION -->
+        <section id="details" class="mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-slate-800 tracking-tight">Interactive Framework Navigator</h2>
+            
+            <div class="mb-6 flex overflow-x-auto border-b border-slate-200 custom-scrollbar pb-1">
+                <button onclick="switchFramework('superpowers')" id="btn-superpowers" class="tab-btn active-tab px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Superpowers</button>
+                <button onclick="switchFramework('taskmaster')" id="btn-taskmaster" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Taskmaster</button>
+                <button onclick="switchFramework('openspec')" id="btn-openspec" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">OpenSpec</button>
+                <button onclick="switchFramework('pocock')" id="btn-pocock" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Pocock Skills</button>
+                <button onclick="switchFramework('speckit')" id="btn-speckit" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">GitHub Spec Kit</button>
+            </div>
+
+            <!-- This container is dynamically updated on selection -->
+            <div id="framework-content" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Dynamic Content Hydrated via JavaScript -->
+            </div>
+        </section>
+
+        <!-- ACCESSIBILITY SECTION -->
+        <section class="bg-slate-900 text-white p-8 rounded-2xl mb-12">
+            <h2 class="text-2xl font-bold mb-2 tracking-tight">Accessibility Analysis Matrix</h2>
+            <p class="text-slate-400 mb-8 text-sm">Each framework caters to different engineering demographics. Use this structured matrix to see where constraints and learning curves sit for both developers and non-technical stakeholders.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700/50 shadow-sm">
+                    <h3 class="text-lg font-bold mb-4 flex items-center text-emerald-400">
+                        <span class="mr-2">💻</span> Developer Experience (DevX)
+                    </h3>
+                    <div id="dev-content" class="text-slate-300 text-sm space-y-4 leading-relaxed">
+                        <!-- Content updated dynamically on tab switch -->
+                    </div>
+                </div>
+                
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700/50 shadow-sm">
+                    <h3 class="text-lg font-bold mb-4 flex items-center text-amber-400">
+                        <span class="mr-2">🎨</span> Non-Technical / PM Experience (Non-DevX)
+                    </h3>
+                    <div id="nondev-content" class="text-slate-300 text-sm space-y-4 leading-relaxed">
+                        <!-- Content updated dynamically on tab switch -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DECISION LOGIC SELECTOR -->
+        <section class="bg-gradient-to-br from-indigo-50 to-slate-100 p-6 md:p-8 rounded-2xl border border-slate-200/80 mb-12">
+            <div class="max-w-3xl">
+                <h3 class="text-xl font-bold text-slate-900">Framework Selector Engine</h3>
+                <p class="text-xs text-slate-600 mt-1">Instantly determine the optimal agentic development tool for your current team scope.</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Project Scale</label>
+                        <select id="select-scale" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 font-medium">
+                            <option value="micro">Micro Feature / Layout Modification</option>
+                            <option value="medium">Medium Domain Subsystem</option>
+                            <option value="large">Large Architecture / Greenfield App</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Team Persona</label>
+                        <select id="select-team" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 font-medium">
+                            <option value="solodev">Solo Command-Line Developer</option>
+                            <option value="techteam">Fully Technical Development Team</option>
+                            <option value="hybrid">Hybrid (PMs, Product, & Engineers)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Primary Priority</label>
+                        <select id="select-priority" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 font-medium">
+                            <option value="autonomy">Complete AI Autonomy</option>
+                            <option value="safety">Rigorous Safety & Documentation</option>
+                            <option value="composability">Lightweight Guardrails</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-start">
+                    <button onclick="calculateRecommendation()" class="bg-slate-900 text-white font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-lg hover:bg-slate-800 transition">Analyze Configuration</button>
+                </div>
+
+                <div id="selector-result" class="mt-6 hidden p-4 bg-white rounded-xl border border-indigo-200 shadow-sm transition duration-300">
+                    <!-- Dynamic evaluation results go here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-slate-400 text-xs pb-12 border-t border-slate-200 pt-8">
+            <p>Agentic Orchestration Framework Evaluation Report • Fact-Based Systems Analysis 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data containing all exact facts, workflows, commands, usages, and experiences for the five frameworks.
+        const data = {
+            superpowers: {
+                title: "Superpowers",
+                themeColor: "#6366f1",
+                paradigm: "Autonomous Subagent Engineering inside Worktrees",
+                workflow: [
+                    { 
+                        name: "Socratic Brainstorming", 
+                        desc: "Agent questions the developer to discover exact structural requirements and intended state shifts.",
+                        command: "/brainstorming"
+                    },
+                    { 
+                        name: "Git Worktree Isolation", 
+                        desc: "Spins up a temporary standalone Git worktree to guarantee total isolation from the workspace root during modification.",
+                        command: "Automated worktree setup" 
+                    },
+                    { 
+                        name: "Markdown Planning", 
+                        desc: "Writes local markdown files representing implementation tasks, specifications, and architecture models.",
+                        command: "/writing-plans" 
+                    },
+                    { 
+                        name: "Subagent Task Dispatch", 
+                        desc: "Instantiates general-purpose parallel subagent routines configured with tool limits and direct files.",
+                        command: "subagent_type: \"general\"" 
+                    },
+                    { 
+                        name: "Enforced TDD Loop", 
+                        desc: "Schedules automated code runs. If test sweeps fail, code is instantly reverted to the last safe commit checkpoint.",
+                        command: "/executing-plans" 
+                    },
+                    { 
+                        name: "Session Handoff Creation", 
+                        desc: "Records current decisions, git diff markers, and concrete steps to allow developers to resume work easily.",
+                        command: "/create_handoff" 
+                    }
+                ],
+                usage: "Execute CLI prompts inside terminal buffers or add plugins directly into your OpenCode / Claude workspace settings configurations.",
+                integration: "Configure project plugins using JSON strings inside workspace properties: `\"plugin\": [\"superpowers@git+https://github.com/obra/superpowers.git\"]`.",
+                quickFacts: {
+                    branchSafety: "Extremely High (Utilizes localized physical git worktrees)",
+                    specRequired: "Flexible (Built interactively in collaboration with developers)",
+                    cloudDep: "None (Operates 100% locally on standard command line environments)"
+                },
+                keyStrength: "Automatic test-driven rolled rollback execution loop preventing code damage.",
+                devX: "Designed strictly for shell developers. Avoids graphical bloat, allowing engineers to spawn complex features without moving away from conversational command bars.",
+                nonDevX: "Steep adoption barrier. Possesses zero external visualization, making it hard for product managers or non-technical coordinators to review task progress."
+            },
+            taskmaster: {
+                title: "Taskmaster",
+                themeColor: "#10b981",
+                paradigm: "Complexity-Gated Backlog Task Orchestration",
+                workflow: [
+                    { 
+                        name: "IDE Integration Scaffolding", 
+                        desc: "Configures targeted system-level execution settings and AI behaviors inside the project path.",
+                        command: "tm rules --setup" 
+                    },
+                    { 
+                        name: "Requirements Parsing", 
+                        desc: "Parses loose feature inputs, business ideas, or raw text descriptions to output standard concepts.",
+                        command: "tm parse-prd" 
+                    },
+                    { 
+                        name: "Expert Simulation Review", 
+                        desc: "Runs multi-agent expert simulation roundtables to identify flaws and document refinements.",
+                        command: "tm round-table" 
+                    },
+                    { 
+                        name: "Complexity Expansion", 
+                        desc: "Ranks implementation difficulty on a 1–10 scale. Automatically expands complex goals into individual microtask lists.",
+                        command: "tm expand" 
+                    },
+                    { 
+                        name: "Autopilot Sandbox Loops", 
+                        desc: "Triggers execution loops that write code, analyze errors, and check test coverage within local sandboxes.",
+                        command: "tm autopilot start" 
+                    },
+                    { 
+                        name: "Hamster Cloud Integration", 
+                        desc: "Pushes local task state variables and metrics output straight to the visual dashboard web application.",
+                        command: "tm sync / goham" 
+                    }
+                ],
+                usage: "Execute global terminal actions (`tm list`, `tm show`, `tm status`) or invoke contextual Slash Commands directly within IDE chats.",
+                integration: "Install globally via Node package registries and link utilizing Cursor, Windsurf, or custom developer editor rules.",
+                quickFacts: {
+                    branchSafety: "Moderate (Modifies active branches inside safe sandboxed processes)",
+                    specRequired: "Dynamic (Derived organically during the PRD extraction step)",
+                    cloudDep: "Optional (Supports local execution with optional Hamster Studio syncing)"
+                },
+                keyStrength: "Algorithmic complexity gating (automatically routes and splits complex tasks).",
+                devX: "Significantly reduces coordination fatigue. The local task list is easily managed with simple key commands, automating iterative test and lint fixes.",
+                nonDevX: "Highly accessible. The web-based Hamster dashboard gives product managers and stakeholders clear visibility into the running agent loop without terminal exposure."
+            },
+            openspec: {
+                title: "OpenSpec",
+                themeColor: "#f59e0b",
+                paradigm: "Specification-First Delta Merging Engine",
+                workflow: [
+                    { 
+                        name: "New Change Initialization", 
+                        desc: "Creates a dedicated workspace directory for the proposed feature inside the local repository paths.",
+                        command: "/opsx:new" 
+                    },
+                    { 
+                        name: "Socratic Idea Exploration", 
+                        desc: "Assists the team in testing ideas and planning specifications before committing code changes.",
+                        command: "/opsx:explore" 
+                    },
+                    { 
+                        name: "Artifact Sequence Generation", 
+                        desc: "Creates proposal details, design specifications, and implementation steps dynamically.",
+                        command: "/opsx:continue" 
+                    },
+                    { 
+                        name: "One-Step Change Drafting", 
+                        desc: "Optionally creates the entire planning and design chain instantly based on targeted inputs.",
+                        command: "/opsx:propose" 
+                    },
+                    { 
+                        name: "Agentic Task Resolution", 
+                        desc: "Reads the generated checklist of tasks and iteratively constructs the implementation, verifying changes step-by-step.",
+                        command: "/opsx:apply" 
+                    },
+                    { 
+                        name: "Quality Verification Audit", 
+                        desc: "Validates code changes against defined test plans, categorizing warnings and structural discrepancies.",
+                        command: "/opsx:verify" 
+                    },
+                    { 
+                        name: "Delta Specification Integration", 
+                        desc: "Merges new specs and modified requirements directly back into the repository's main document folder.",
+                        command: "/opsx:sync" 
+                    },
+                    { 
+                        name: "Workspace Record Archiving", 
+                        desc: "Archives the workspace directory to keep a permanent history of completed change configurations.",
+                        command: "/opsx:archive" 
+                    }
+                ],
+                usage: "Run standard global terminal controls (`openspec list`, `openspec view`) alongside conversational agent commands.",
+                integration: "Install via npm, initialize directories (`openspec init`), and connect custom system prompts inside `.claude/skills` settings.",
+                quickFacts: {
+                    branchSafety: "High (Restricts actual codebase edits until specification documents are valid)",
+                    specRequired: "Extremely High (Requires structured Markdown specs before running code changes)",
+                    cloudDep: "None (Runs entirely locally inside project directories)"
+                },
+                keyStrength: "Delta specification merging (keeps system specs updated without manual drift).",
+                devX: "Fits perfectly into code review habits. Keeps change proposals compact, clean, and decoupled from primary master specs until deployment merges.",
+                nonDevX: "Excellent for product owners. Requirements are stated in readable 'GIVEN-WHEN-THEN' blocks, making it easy to audit specifications without reading source files."
+            },
+            pocock: {
+                title: "Pocock's Skills",
+                themeColor: "#ef4444",
+                paradigm: "Socratic Markdown Prompt Engineering Guidelines",
+                workflow: [
+                    { 
+                        name: "Environment Verification", 
+                        desc: "Inspects workspace logs, current configuration, and folder schemas to initialize project settings.",
+                        command: "/setup-skills" 
+                    },
+                    { 
+                        name: "Core Infrastructure Scaffolding", 
+                        desc: "Scaffolds standard markdown files to define local issue trackers, triage tags, and domains.",
+                        command: "setup-matt-pocock-skills" 
+                    },
+                    { 
+                        name: "Architectural Dialogue Routing", 
+                        desc: "Directs specific questions about system integrations and tech stack constraints to a localized context.",
+                        command: "/ask-matt" 
+                    },
+                    { 
+                        name: "Critical Assumption Audit", 
+                        desc: "Runs diagnostic checks, asking tough questions to uncover hidden bugs and edge cases before coding.",
+                        command: "/grill-me" 
+                    },
+                    { 
+                        name: "Vertical Slice Decomposition", 
+                        desc: "Deconstructs bulky PRDs into lean, test-ready vertical task paths.",
+                        command: "/to-prd" 
+                    },
+                    { 
+                        name: "Isolated TDD Directives", 
+                        desc: "Enforces strict test-driven development loops on coding agents to keep changes aligned with tests.",
+                        command: "/tdd" 
+                    },
+                    { 
+                        name: "Workspace Issue Breakdown", 
+                        desc: "Generates explicit local tracker task files inside scratch spaces to organize development.",
+                        command: "/to-issues" 
+                    },
+                    { 
+                        name: "Bug Diagnostic Scans", 
+                        desc: "Enters an analytical loop to scan logs, identify root failures, and suggest fixes.",
+                        command: "/diagnose" 
+                    }
+                ],
+                usage: "Place the YAML-frontmatter Markdown skill documents directly within your AI IDE's local folder path structure.",
+                integration: "Clone skill folders or copy individual documents directly into `.claude/skills` or `.cursor/skills` folders.",
+                quickFacts: {
+                    branchSafety: "User-dependent (Guided by prompt boundaries rather than execution sandboxes)",
+                    specRequired: "Low (Directly acts as custom system instructions inside active chat blocks)",
+                    cloudDep: "None (Completely local, file-based prompt sheets)"
+                },
+                keyStrength: "Zero-dependency setup (integrates seamlessly into any custom IDE prompt flow).",
+                devX: "Acts as an automated Senior Engineer in your IDE. Prompts force the agent to slow down, explore edge cases, and run tests before implementing complex logic.",
+                nonDevX: "Highly manual. Requires direct familiarity with test setups and CLI commands, offering little value to non-programmers."
+            },
+            speckit: {
+                title: "GitHub Spec Kit",
+                themeColor: "#0f172a",
+                paradigm: "Executable Spec-Driven Development",
+                workflow: [
+                    { 
+                        name: "Standard Setup Scaffolding", 
+                        desc: "Initializes baseline project standards, custom templates, and execution rules.",
+                        command: "/speckit.constitution" 
+                    },
+                    { 
+                        name: "Functional Spec Generation", 
+                        desc: "Collects raw requests and outputs high-level functional specifications.",
+                        command: "/speckit.specify" 
+                    },
+                    { 
+                        name: "Technical Blueprint Planning", 
+                        desc: "Prepares detailed technical plans, data models, and API contracts.",
+                        command: "/speckit.plan" 
+                    },
+                    { 
+                        name: "Interactive Clarification Dialog", 
+                        desc: "Prompts the user directly to resolve missing edge cases and design decisions.",
+                        command: "/speckit.clarify" 
+                    },
+                    { 
+                        name: "Execution Task Partitioning", 
+                        desc: "Converts technical blueprints into a structured, step-by-step checklist file.",
+                        command: "/speckit.tasks" 
+                    },
+                    { 
+                        name: "GitHub Ticket Sync", 
+                        desc: "Uploads local checklists and automatically populates the team's GitHub issues.",
+                        command: "/speckit.taskstoissues" 
+                    },
+                    { 
+                        name: "Localized Code Implementation", 
+                        desc: "Instructs the local coding agent to build components based on spec requirements.",
+                        command: "/speckit.implement" 
+                    }
+                ],
+                usage: "Execute integrated Slash Commands inside your chat view combined with localized Python binary execution.",
+                integration: "Initialize workspace rules using Python `uvx specify init` to bootstrap `.github` prompts and `.specify` configuration folders.",
+                quickFacts: {
+                    branchSafety: "Moderate (Operates on dedicated features branches synced with GitHub trackers)",
+                    specRequired: "Extremely High (Strictly blocks execution until all spec phases pass)",
+                    cloudDep: "Optional (Connects with GitHub boards for ticket sync, with local fallback)"
+                },
+                keyStrength: "Consensus-based spec execution (ensures code matches specs before committing).",
+                devX: "Very organized. Provides a repeatable workflow that eliminates 'vibe coding'. However, introduces documentation overhead and requires mental tracking of multi-stage sequential commands.",
+                nonDevX: "Excellent for project managers. Specifications and plans are documented in readable markdown files, keeping the team in sync on the repository's intent."
+            }
+        };
+
+        function switchFramework(id) {
+            const fw = data[id];
+            
+            // Toggle active styles on tab buttons
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
+            document.getElementById(`btn-${id}`).classList.add('active-tab');
+
+            const content = document.getElementById('framework-content');
+            content.innerHTML = `
+                <!-- Workflow list section -->
+                <div class="lg:col-span-1 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Workflow Execution Steps</h3>
+                        <div class="space-y-6 mt-4">
+                            ${fw.workflow.map((step, idx) => `
+                                <div class="workflow-step">
+                                    <div class="step-node" style="background: ${fw.themeColor}"></div>
+                                    <div class="flex flex-col">
+                                        <div class="flex items-center justify-between gap-2">
+                                            <span class="text-xs font-semibold text-slate-400">Step ${idx + 1}</span>
+                                            ${step.command ? `
+                                                <span class="px-1.5 py-0.5 text-[9px] font-bold text-slate-500 bg-slate-100 rounded border border-slate-200 code-font truncate max-w-[120px]" title="${step.command}">
+                                                    ${step.command}
+                                                </span>
+                                            ` : ''}
+                                        </div>
+                                        <span class="text-sm font-bold text-slate-800 leading-tight">${step.name}</span>
+                                        <span class="text-xs text-slate-500 mt-1 leading-relaxed">${step.desc}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comprehensive Details section -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="w-3 h-3 rounded-full" style="background-color: ${fw.themeColor}"></span>
+                            <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Paradigm Architecture</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-800 tracking-tight mb-2">${fw.title}</h3>
+                        <p class="text-md font-semibold text-slate-600 mb-6">${fw.paradigm}</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                <p class="text-xs font-bold uppercase text-slate-400 mb-1">Execution Interface</p>
+                                <p class="text-sm font-medium text-slate-700 leading-relaxed">${fw.usage}</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                <p class="text-xs font-bold uppercase text-slate-400 mb-1">System Integration</p>
+                                <p class="text-sm font-medium text-slate-700 leading-relaxed">${fw.integration}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="p-6 bg-slate-900 text-white rounded-2xl">
+                            <p class="text-xs font-bold uppercase text-slate-400 mb-4">Core Attributes</p>
+                            <ul class="text-xs space-y-2.5">
+                                <li class="flex justify-between border-b border-slate-800 pb-2">
+                                    <span class="text-slate-400">Branch-Safe Boundaries</span>
+                                    <span class="font-semibold">${fw.quickFacts.branchSafety}</span>
+                                </li>
+                                <li class="flex justify-between border-b border-slate-800 pb-2">
+                                    <span class="text-slate-400">Specification Strictness</span>
+                                    <span class="font-semibold">${fw.quickFacts.specRequired}</span>
+                                </li>
+                                <li class="flex justify-between pb-1">
+                                    <span class="text-slate-400">Cloud Dependency</span>
+                                    <span class="font-semibold">${fw.quickFacts.cloudDep}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm flex flex-col justify-between">
+                            <div>
+                                <p class="text-xs font-bold uppercase text-slate-400 mb-2">Defining Framework Strength</p>
+                                <p class="text-sm font-semibold text-slate-800 leading-relaxed">
+                                    ${fw.keyStrength}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Hydrate accessibility matrix cards dynamically
+            document.getElementById('dev-content').innerHTML = `<p class="leading-relaxed">${fw.devX}</p>`;
+            document.getElementById('nondev-content').innerHTML = `<p class="leading-relaxed">${fw.nonDevX}</p>`;
+        }
+
+        function calculateRecommendation() {
+            const scale = document.getElementById('select-scale').value;
+            const team = document.getElementById('select-team').value;
+            const priority = document.getElementById('select-priority').value;
+            
+            const resultDiv = document.getElementById('selector-result');
+            resultDiv.classList.remove('hidden');
+
+            let recommendedKey = "speckit";
+            let rationale = "";
+
+            if (priority === 'autonomy') {
+                recommendedKey = 'superpowers';
+                rationale = "Your team prioritizes hands-off execution. Superpowers automatically coordinates subagents inside isolated Git worktrees and deletes any code that fails TDD loops.";
+            } else if (priority === 'composability') {
+                recommendedKey = 'pocock';
+                rationale = "You value speed and flexible prompts. Matt Pocock's skills run diagnostic audits and organize tasks directly within your IDE without custom software frameworks.";
+            } else {
+                // priority === safety
+                if (scale === 'micro') {
+                    recommendedKey = 'openspec';
+                    rationale = "For small changes requiring spec alignment, OpenSpec maintains safety with light delta specs, avoiding file and issue bloat.";
+                } else if (team === 'hybrid' || scale === 'large') {
+                    recommendedKey = 'speckit';
+                    rationale = "You require top-tier specs and cross-functional ticket coordination. Spec Kit makes specs the source of truth and integrates with GitHub, though you should bypass ticket syncing on minor visual updates.";
+                } else {
+                    recommendedKey = 'taskmaster';
+                    rationale = "For engineering teams working on features of variable complexity, Taskmaster provides complexity scoring and automated sandbox loops.";
+                }
+            }
+
+            const rec = data[recommendedKey];
+
+            resultDiv.innerHTML = `
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Engine Recommendation</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="w-4 h-4 rounded-full" style="background-color: ${rec.themeColor}"></span>
+                    <h4 class="text-lg font-black text-slate-800">${rec.title}</h4>
+                </div>
+                <p class="text-xs text-slate-600 font-semibold mt-1 italic">${rec.paradigm}</p>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed">${rationale}</p>
+                <div class="mt-4 flex gap-2">
+                    <button onclick="switchFramework('${recommendedKey}'); window.location.hash='details';" class="text-[11px] font-bold uppercase tracking-wider text-white bg-slate-900 px-3.5 py-2 rounded hover:bg-slate-800 transition">View Full Profile</button>
+                </div>
+            `;
+        }
+
+        let radarChartInstance = null;
+        function initRadar() {
+            const ctx = document.getElementById('capabilityRadar').getContext('2d');
+            
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Autonomy', 'Spec Rigor', 'Collaboration', 'Safety', 'Flexibility'],
+                    datasets: [
+                        {
+                            label: 'Superpowers',
+                            data: [95, 60, 40, 85, 50],
+                            borderColor: data.superpowers.themeColor,
+                            backgroundColor: 'rgba(99, 102, 241, 0.05)',
+                            borderWidth: 2,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'Taskmaster',
+                            data: [80, 75, 90, 70, 60],
+                            borderColor: data.taskmaster.themeColor,
+                            backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                            borderWidth: 2,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'OpenSpec',
+                            data: [50, 95, 70, 60, 75],
+                            borderColor: data.openspec.themeColor,
+                            backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                            borderWidth: 2,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'Pocock Skills',
+                            data: [40, 70, 30, 95, 95],
+                            borderColor: data.pocock.themeColor,
+                            backgroundColor: 'rgba(239, 68, 68, 0.05)',
+                            borderWidth: 2,
+                            pointRadius: 3
+                        },
+                        {
+                            label: 'GitHub Spec Kit',
+                            data: [65, 98, 80, 90, 55],
+                            borderColor: data.speckit.themeColor,
+                            backgroundColor: 'rgba(15, 23, 42, 0.05)',
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            borderDash: [5, 3]
+                        }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#e2e8f0' },
+                            pointLabels: { 
+                                font: { 
+                                    size: 11,
+                                    weight: 'bold'
+                                },
+                                color: '#475569'
+                            },
+                            ticks: { display: false },
+                            suggestedMin: 20,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: { 
+                            position: 'bottom', 
+                            labels: { 
+                                boxWidth: 12, 
+                                font: { size: 10, weight: 'bold' },
+                                padding: 12,
+                                color: '#334155'
+                            } 
+                        }
+                    }
+                }
+            });
+        }
+
+        // START ON LOAD
+        window.onload = function () {
+            initRadar();
+            // Default select Spec Kit so the user can inspect its detailed flow immediately
+            switchFramework('speckit');
+        }
+    </script>
+</body>
+</html>
