@@ -147,49 +147,6 @@
             </div>
         </header>
 
-        <!-- OVERVIEW RADAR CHART SECTION -->
-        <section id="overview" class="mb-12">
-            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 mb-8">
-                <div class="flex flex-col lg:flex-row gap-8 items-center">
-                    <div class="w-full lg:w-1/2">
-                        <h2 class="text-2xl font-bold mb-3 text-slate-800 tracking-tight">Architectural Profiles</h2>
-                        <p class="text-slate-600 mb-6 text-sm leading-relaxed">
-                            These profiles showcase how frameworks strike balances between <strong>Spec Rigor</strong>, <strong>Autonomy</strong>, <strong>Safety</strong>, <strong>Collaboration</strong>, and <strong>Flexibility</strong>. Compare metrics in the interactive radar chart to see which paradigm best aligns with your team's development pipeline.
-                        </p>
-                        
-                        <div class="space-y-3">
-                            <div class="p-3 border-l-4 border-indigo-500 bg-indigo-50/50 rounded-r-lg">
-                                <h4 class="font-bold text-slate-800 text-sm">Superpowers</h4>
-                                <p class="text-xs text-slate-600">Autonomous development targeting isolated codebases inside temporary Git worktrees.</p>
-                            </div>
-                            <div class="p-3 border-l-4 border-emerald-500 bg-emerald-50/50 rounded-r-lg">
-                                <h4 class="font-bold text-slate-800 text-sm">Taskmaster</h4>
-                                <p class="text-xs text-slate-600">Complexity-gated queues that route minor features to local agents & heavy features to cloud boards.</p>
-                            </div>
-                            <div class="p-3 border-l-4 border-amber-500 bg-amber-50/50 rounded-r-lg">
-                                <h4 class="font-bold text-slate-800 text-sm">OpenSpec</h4>
-                                <p class="text-xs text-slate-600">Delta-based spec updates designed for cross-team alignment and branch merge protection.</p>
-                            </div>
-                            <div class="p-3 border-l-4 border-red-500 bg-rose-50/50 rounded-r-lg">
-                                <h4 class="font-bold text-slate-800 text-sm">Pocock Skills</h4>
-                                <p class="text-xs text-slate-600">Portable prompts and rules configurations designed to pair directly inside IDE conversational buffers.</p>
-                            </div>
-                            <div class="p-3 border-l-4 border-slate-900 bg-slate-100 rounded-r-lg">
-                                <h4 class="font-bold text-slate-800 text-sm">GitHub Spec Kit</h4>
-                                <p class="text-xs text-slate-600">Spec-driven development utilizing standardized document handoffs and multi-agent execution steps.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="w-full lg:w-1/2 flex flex-col items-center">
-                        <div class="chart-container">
-                            <canvas id="capabilityRadar"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- BASE SPEC-DRIVEN FLOW SECTION -->
         <section id="spec-driven-flow" class="mb-12">
             <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
@@ -276,6 +233,67 @@
             </div>
         </section>
 
+        <!-- OVERVIEW RADAR CHART SECTION -->
+        <section id="overview" class="mb-12">
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 mb-8">
+                <div class="flex flex-col lg:flex-row gap-8 items-center">
+                    <div class="w-full lg:w-1/2">
+                        <h2 class="text-2xl font-bold mb-3 text-slate-800 tracking-tight">Architectural Profiles</h2>
+                        <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                            These profiles showcase how frameworks strike balances between <strong>Spec Rigor</strong>, <strong>Autonomy</strong>, <strong>Safety</strong>, <strong>Collaboration</strong>, and <strong>Flexibility</strong>. Compare metrics in the interactive radar chart to see which paradigm best aligns with your team's development pipeline.
+                        </p>
+                        
+                        <div class="space-y-3">
+                            <div class="p-3 border-l-4 border-indigo-500 bg-indigo-50/50 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">Superpowers</h4>
+                                <p class="text-xs text-slate-600">Autonomous development targeting isolated codebases inside temporary Git worktrees.</p>
+                            </div>
+                            <div class="p-3 border-l-4 border-emerald-500 bg-emerald-50/50 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">Taskmaster</h4>
+                                <p class="text-xs text-slate-600">Complexity-gated queues that route minor features to local agents & heavy features to cloud boards.</p>
+                            </div>
+                            <div class="p-3 border-l-4 border-amber-500 bg-amber-50/50 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">OpenSpec</h4>
+                                <p class="text-xs text-slate-600">Delta-based spec updates designed for cross-team alignment and branch merge protection.</p>
+                            </div>
+                            <div class="p-3 border-l-4 border-red-500 bg-rose-50/50 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">Pocock Skills</h4>
+                                <p class="text-xs text-slate-600">Portable prompts and rules configurations designed to pair directly inside IDE conversational buffers.</p>
+                            </div>
+                            <div class="p-3 border-l-4 border-slate-900 bg-slate-100 rounded-r-lg">
+                                <h4 class="font-bold text-slate-800 text-sm">GitHub Spec Kit</h4>
+                                <p class="text-xs text-slate-600">Spec-driven development utilizing standardized document handoffs and multi-agent execution steps.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full lg:w-1/2 flex flex-col items-center">
+                        <div class="chart-container">
+                            <canvas id="capabilityRadar"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DYNAMIC FRAMEWORK NAVIGATOR SECTION -->
+        <section id="details" class="mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-slate-800 tracking-tight">Interactive Framework Navigator</h2>
+            
+            <div class="mb-6 flex overflow-x-auto border-b border-slate-200 custom-scrollbar pb-1">
+                <button onclick="switchFramework('superpowers')" id="btn-superpowers" class="tab-btn active-tab px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Superpowers</button>
+                <button onclick="switchFramework('taskmaster')" id="btn-taskmaster" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Taskmaster</button>
+                <button onclick="switchFramework('openspec')" id="btn-openspec" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">OpenSpec</button>
+                <button onclick="switchFramework('pocock')" id="btn-pocock" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Pocock Skills</button>
+                <button onclick="switchFramework('speckit')" id="btn-speckit" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">GitHub Spec Kit</button>
+            </div>
+
+            <!-- This container is dynamically updated on selection -->
+            <div id="framework-content" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Dynamic Content Hydrated via JavaScript -->
+            </div>
+        </section>
+
         <!-- REAL EXECUTION COMPARISON SECTION -->
         <section id="real-execution" class="mb-12">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
@@ -333,24 +351,6 @@
 
             <div id="execution-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                 <!-- Dynamic framework cards -->
-            </div>
-        </section>
-
-        <!-- DYNAMIC FRAMEWORK NAVIGATOR SECTION -->
-        <section id="details" class="mb-12">
-            <h2 class="text-2xl font-bold mb-4 text-slate-800 tracking-tight">Interactive Framework Navigator</h2>
-            
-            <div class="mb-6 flex overflow-x-auto border-b border-slate-200 custom-scrollbar pb-1">
-                <button onclick="switchFramework('superpowers')" id="btn-superpowers" class="tab-btn active-tab px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Superpowers</button>
-                <button onclick="switchFramework('taskmaster')" id="btn-taskmaster" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Taskmaster</button>
-                <button onclick="switchFramework('openspec')" id="btn-openspec" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">OpenSpec</button>
-                <button onclick="switchFramework('pocock')" id="btn-pocock" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">Pocock Skills</button>
-                <button onclick="switchFramework('speckit')" id="btn-speckit" class="tab-btn px-5 py-3 text-sm font-semibold rounded-t-lg transition whitespace-nowrap">GitHub Spec Kit</button>
-            </div>
-
-            <!-- This container is dynamically updated on selection -->
-            <div id="framework-content" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Dynamic Content Hydrated via JavaScript -->
             </div>
         </section>
 
