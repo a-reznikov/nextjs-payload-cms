@@ -709,6 +709,10 @@
                 tdd: "Yes",
                 gitPr: "Partial",
                 confidence: "Partial",
+                prNumber: 22,
+                prTitle: "Superpowers: Add register for class modal flow",
+                prUrl: "https://github.com/a-reznikov/nextjs-payload-cms/pull/22",
+                prMeta: "3 tasks",
                 fit: "Large implementation where autonomous subagents and TDD checks justify higher cost.",
                 strength: "Strongest automation: subagents, TDD loop, many intermediate commits, and final PR creation.",
                 friction: "Highest resource cost and still needed human nudges for branch creation, pausing, and PR creation."
@@ -727,6 +731,10 @@
                 tdd: "Partial",
                 gitPr: "No",
                 confidence: "Yes",
+                prNumber: 23,
+                prTitle: "Open-spec: add class registration modal flow",
+                prUrl: "https://github.com/a-reznikov/nextjs-payload-cms/pull/23",
+                prMeta: "3 tasks",
                 fit: "Structured feature work where readable specs and low resource usage matter more than deep automation.",
                 strength: "Best resource efficiency in the reports and a clear, controllable spec-first flow.",
                 friction: "Branching, commits, and PR creation remained mostly manual and it did not orchestrate subagents."
@@ -745,6 +753,10 @@
                 tdd: "Partial",
                 gitPr: "Partial",
                 confidence: "No",
+                prNumber: 28,
+                prTitle: "Matt Pocock: add Class Registration homepage flow",
+                prUrl: "https://github.com/a-reznikov/nextjs-payload-cms/pull/28",
+                prMeta: "3 tasks",
                 fit: "Developer-led workflow where the user knows which skills to call and wants strong planning prompts.",
                 strength: "Excellent questioning and issue breakdown once the PRD -> issues -> TDD path was made explicit.",
                 friction: "Flow was unclear by default, skipped the intended process at first, and was not PM-friendly."
@@ -763,6 +775,10 @@
                 tdd: "No",
                 gitPr: "No",
                 confidence: "No",
+                prNumber: 21,
+                prTitle: "Spec-kit: add register for class flow",
+                prUrl: "https://github.com/a-reznikov/nextjs-payload-cms/pull/21",
+                prMeta: "Opened PR",
                 fit: "Greenfield or heavily governed work where a large spec artifact tree is acceptable.",
                 strength: "Most complete document chain and full automated verification including integration and E2E tests.",
                 friction: "Heavy artifact volume, extra boilerplate, dependency friction, and unclear cleanup/commit guidance."
@@ -869,6 +885,9 @@
                         <p class="text-[11px] font-bold uppercase tracking-widest text-rose-600 mb-1">Main Friction</p>
                         <p class="text-xs leading-relaxed text-slate-600">${item.friction}</p>
                     </div>
+                    <a href="${item.prUrl}" target="_blank" rel="noreferrer" class="mt-auto inline-flex items-center justify-center rounded-lg bg-slate-900 px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-white hover:bg-slate-800 transition">
+                        Open PR #${item.prNumber}
+                    </a>
                 </article>
             `).join('');
         }
