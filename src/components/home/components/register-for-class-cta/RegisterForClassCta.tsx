@@ -189,12 +189,12 @@ export const RegisterForClassCta: React.FC = () => {
         <div
           aria-labelledby="register-for-class-title"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/70 px-4 py-8 backdrop-blur-sm sm:items-center sm:p-6"
+          className="fixed inset-0 z-50 flex items-start justify-center overflow-hidden bg-slate-950/70 px-4 py-4 backdrop-blur-sm sm:items-center sm:p-6"
           role="dialog"
           onClick={closeModal}
         >
           <div
-            className="relative w-full max-w-4xl rounded-[2rem] border border-slate-200 bg-slate-50 p-6 text-slate-900 shadow-2xl sm:p-8 lg:p-10"
+            className="relative flex max-h-[calc(100vh-2rem)] w-full max-w-4xl flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50 text-slate-900 shadow-2xl sm:max-h-[calc(100vh-3rem)]"
             onClick={(event) => event.stopPropagation()}
           >
             <button
@@ -214,7 +214,8 @@ export const RegisterForClassCta: React.FC = () => {
             </button>
 
             {submitState === 'success' && responseData ? (
-              <div className="space-y-8 pr-12">
+              <div className="overflow-y-auto px-6 py-6 pr-20 sm:px-8 sm:py-8 sm:pr-24 lg:px-10 lg:py-10">
+                <div className="space-y-8">
                 <div className="space-y-3">
                   <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#1389b5]">
                     Registration complete
@@ -260,82 +261,87 @@ export const RegisterForClassCta: React.FC = () => {
                     Close
                   </button>
                 </div>
+                </div>
               </div>
             ) : (
-              <form className="space-y-8 pr-12" noValidate onSubmit={handleSubmit}>
-                <div className="space-y-3">
-                  <h2
-                    className="text-3xl font-semibold tracking-tight sm:text-4xl"
-                    id="register-for-class-title"
-                  >
-                    Register for class
-                  </h2>
-                  <p className="max-w-2xl text-lg leading-8 text-slate-700">
-                    Pellentesque vitae sodales sed mauris elit nulla proin ut aliquam cursus
-                    ligula quisque odio
-                  </p>
-                </div>
-
-                <div className="space-y-6">
-                  {fieldRows.map((row) => (
-                    <div
-                      key={row.map((field) => field.name).join('-')}
-                      className={`grid gap-5 ${row.length === 2 ? 'sm:grid-cols-[0.95fr_1fr]' : 'grid-cols-1'}`}
+              <form className="overflow-y-auto px-6 py-6 pr-20 sm:px-8 sm:py-8 sm:pr-24 lg:px-10 lg:py-10" noValidate onSubmit={handleSubmit}>
+                <div className="space-y-8">
+                  <div className="space-y-3">
+                    <h2
+                      className="text-3xl font-semibold tracking-tight sm:text-4xl"
+                      id="register-for-class-title"
                     >
-                      {row.map((field) => {
-                        const error = fieldErrors[field.name]
+                      Register for class
+                    </h2>
+                    <p className="max-w-2xl text-lg leading-8 text-slate-700">
+                      Pellentesque vitae sodales sed mauris elit nulla proin ut aliquam cursus
+                      ligula quisque odio
+                    </p>
+                  </div>
 
-                        return (
-                          <label key={field.name} className="block">
-                            <span className="mb-3 block text-2xl font-medium text-slate-500">
-                              {field.label}
-                            </span>
-                            <input
-                              aria-invalid={error ? 'true' : 'false'}
-                              aria-describedby={error ? `${field.name}-error` : undefined}
-                              className="h-18 w-full rounded-[1.5rem] border border-slate-300 bg-white px-6 text-xl text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#1389b5] focus:ring-2 focus:ring-[#1389b5]/20"
-                              name={field.name}
-                              placeholder={field.placeholder}
-                              required={!field.optional}
-                              type={field.type ?? 'text'}
-                              value={formValues[field.name]}
-                              onChange={(event) => handleChange(field.name, event.target.value)}
-                            />
-                            {error ? (
-                              <span
-                                className="mt-2 block text-sm font-medium text-rose-600"
-                                id={`${field.name}-error`}
-                              >
-                                {error}
+                  <div className="space-y-6">
+                    {fieldRows.map((row) => (
+                      <div
+                        key={row.map((field) => field.name).join('-')}
+                        className={`grid gap-5 ${row.length === 2 ? 'sm:grid-cols-[0.95fr_1fr]' : 'grid-cols-1'}`}
+                      >
+                        {row.map((field) => {
+                          const error = fieldErrors[field.name]
+
+                          return (
+                            <label key={field.name} className="block">
+                              <span className="mb-3 block text-2xl font-medium text-slate-500">
+                                {field.label}
                               </span>
-                            ) : null}
-                          </label>
-                        )
-                      })}
-                    </div>
-                  ))}
-                </div>
+                              <input
+                                aria-invalid={error ? 'true' : 'false'}
+                                aria-describedby={error ? `${field.name}-error` : undefined}
+                                className="h-18 w-full rounded-[1.5rem] border border-slate-300 bg-white px-6 text-xl text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#1389b5] focus:ring-2 focus:ring-[#1389b5]/20"
+                                name={field.name}
+                                placeholder={field.placeholder}
+                                required={!field.optional}
+                                type={field.type ?? 'text'}
+                                value={formValues[field.name]}
+                                onChange={(event) => handleChange(field.name, event.target.value)}
+                              />
+                              {error ? (
+                                <span
+                                  className="mt-2 block text-sm font-medium text-rose-600"
+                                  id={`${field.name}-error`}
+                                >
+                                  {error}
+                                </span>
+                              ) : null}
+                            </label>
+                          )
+                        })}
+                      </div>
+                    ))}
+                  </div>
 
-                {errorMessage ? (
-                  <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
-                    {errorMessage}
-                  </p>
-                ) : null}
-
-                <button
-                  className="inline-flex w-full items-center justify-center rounded-full bg-[#1389b5] px-6 py-5 text-xl font-semibold text-white transition hover:bg-[#0f789f] disabled:cursor-not-allowed disabled:bg-[#7cb9cf]"
-                  disabled={submitState === 'submitting'}
-                  type="submit"
-                >
-                  {submitState === 'submitting' ? (
-                    <span className="inline-flex items-center gap-3">
-                      <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
-                      Submitting...
-                    </span>
+                  {errorMessage ? (
+                    <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
+                      {errorMessage}
+                    </p>
                   ) : (
-                    'Submit'
+                    null
                   )}
-                </button>
+
+                  <button
+                    className="inline-flex w-full items-center justify-center rounded-full bg-[#1389b5] px-6 py-5 text-xl font-semibold text-white transition hover:bg-[#0f789f] disabled:cursor-not-allowed disabled:bg-[#7cb9cf]"
+                    disabled={submitState === 'submitting'}
+                    type="submit"
+                  >
+                    {submitState === 'submitting' ? (
+                      <span className="inline-flex items-center gap-3">
+                        <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                        Submitting...
+                      </span>
+                    ) : (
+                      'Submit'
+                    )}
+                  </button>
+                </div>
               </form>
             )}
           </div>
