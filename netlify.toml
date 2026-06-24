@@ -1,3 +1,6 @@
 [build]
   command = "mkdir -p netlify-report && cp report/agentic_frameworks_guide.html netlify-report/index.html"
   publish = "netlify-report"
+
+[build.environment]
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
