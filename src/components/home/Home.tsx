@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { ClassRegistrationModal } from './components/class-registration-modal/ClassRegistrationModal'
+
 type Props = {
   adminRoute: string
   fileURL: string
@@ -50,12 +52,7 @@ export const Home: React.FC<Props> = ({ adminRoute, fileURL, userEmail }) => (
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <button
-              className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-              type="button"
-            >
-              Register for class
-            </button>
+            <ClassRegistrationModal />
             <a
               className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
               href={adminRoute}
