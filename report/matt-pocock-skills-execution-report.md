@@ -69,9 +69,9 @@ Step 1: `**grill-with-docs`** (Started the design workflow for the homepage Clas
 | Evaluation Question                                                  | Response (Yes/No/Partial) | Human Notes / Comments                           |
 | -------------------------------------------------------------------- | ------------------------- | ------------------------------------------------ |
 | Is it easy to integrate into an existing project?                    | Partial                   |                                                  |
-| Is it immediately clear how to use or trigger it?                    | No                        | It is not clear wich skills are needed           |
+| Is it immediately clear how to use or trigger it?                    | No                        | It is not clear which skills are needed.         |
 | Does it use our own custom skills or only external/pre-baked skills? | No                        | Only when I ask to use                           |
-| Is the documentation up to date with the actual tool behavior?       | No                        | There is not strict flow or example of the usage |
+| Is the documentation up to date with the actual tool behavior?       | No                        | There is no strict flow or clear usage example.  |
 
 
 ### 2. Process Control & Autonomy
@@ -79,10 +79,10 @@ Step 1: `**grill-with-docs`** (Started the design workflow for the homepage Clas
 
 | Evaluation Question                                                               | Response (Yes/No/Partial) | Human Notes / Comments                                                                     |
 | --------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------ |
-| Is it easy to control or steer the agent's process?                               | Yes                       | It do tasks one by one and it is easy to control each step and do changes if needed.       |
-| Does it ask clarification questions before preparing the specification?           | Yes                       | /grilling works very good.                                                                 |
+| Is it easy to control or steer the agent's process?                               | Yes                       | It does tasks one by one, and it is easy to control each step and make changes if needed. |
+| Does it ask clarification questions before preparing the specification?           | Yes                       | `/grilling` works very well.                                                              |
 | Can you easily pause, interrupt, or cancel a running agent?                       | Yes                       |                                                                                            |
-| Does the agent proactively suggest the next step/command?                         | Partial                   | It suggest next steps, but process is stil uncalear what and when we need to call in flow. |
+| Does the agent proactively suggest the next step/command?                         | Partial                   | It suggests next steps, but the process is still unclear: what to call, and when, in the flow. |
 | Does it suggest an implementation flow (sequential execution or parallel agents)? | No                        |                                                                                            |
 | Does it orchestrate subagents from one main agent?                                | No                        |                                                                                            |
 | Is it easy to correct the agent if it makes a mistake midway?                     | Yes                       |                                                                                            |
@@ -93,11 +93,11 @@ Step 1: `**grill-with-docs`** (Started the design workflow for the homepage Clas
 
 | Evaluation Question                                                                | Response (Yes/No/Partial) | Human Notes / Comments                                                                                                                                                                                                                 |
 | ---------------------------------------------------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Are the generated specs, plans, or tasks clear to read?                            | Partial                   | After I call /to-prd it's created detailed issue for PRD. Then when I call /to-issue it created sub issues for prd. The look good, but it is not clear what should I don with them (should I close them manually or add to pr or else) |
+| Are the generated specs, plans, or tasks clear to read?                            | Partial                   | After I call `/to-prd`, it creates a detailed PRD issue. Then when I call `/to-issues`, it creates sub-issues for that PRD. They look good, but it is not clear what I should do with them next: close them manually, link them to the PR, or something else. |
 | Does it use a clear `Given -> When -> Then` structure where appropriate?           | No                        |                                                                                                                                                                                                                                        |
-| Does it follow a clear `red -> green -> refactor` workflow?                        | Partial                   | It use this flow If I call /tdd skill, but for the first session it doesn't use tdd at all it used bdd.                                                                                                                                |
-| Is the amount of generated documentation well-balanced?                            | Partial                   | I would say that amount was good, but it is not totally clear which and why do we need each for (domain.md, issue-tracker and so on). And how and when agent will sue them.                                                            |
-| Did the agent stick strictly to the requested feature scope?                       | Partial                   | It doesn't add cross buton for closing modal as it was on the mockup.                                                                                                                                                                  |
+| Does it follow a clear `red -> green -> refactor` workflow?                        | Partial                   | It uses this flow if I explicitly call the `/tdd` skill, but in the first session it did not use TDD at all; it was closer to BDD.                                                                                                    |
+| Is the amount of generated documentation well-balanced?                            | Partial                   | The amount was good, but it is not totally clear what each artifact is for (`domain.md`, issue tracker docs, and so on), or when and how the agent will use them.                                                                      |
+| Did the agent stick strictly to the requested feature scope?                       | Partial                   | It did not add the cross button for closing the modal, even though it was shown on the mockup.                                                                                                                                        |
 | Does it do extra work, code expansion, or generate boilerplate that we don't need? | No                        |                                                                                                                                                                                                                                        |
 | Did the generated code respect your project's styling/linting rules?               | Partial                   |                                                                                                                                                                                                                                        |
 
@@ -107,11 +107,11 @@ Step 1: `**grill-with-docs`** (Started the design workflow for the homepage Clas
 
 | Evaluation Question                                                    | Response (Yes/No/Partial) | Human Notes / Comments                                                                                                                                                                                                                                   |
 | ---------------------------------------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Does it automatically create a separate Git branch for the task?       | Partial                   | When I start impelmentation it doesn't create an new brach whicl I asked. But then when it created issues and start impelemtation of the issue It created a new brach for one issue and then continue wotk in this brach and did all tasks in one brach. |
+| Does it automatically create a separate Git branch for the task?       | Partial                   | When I started implementation, it did not create a new branch even though I asked for one. Later, after it created issues and started implementing one of them, it created a new branch for that issue, then continued all the work in that same branch. |
 | Does it make intermediate Git commits between workflow steps?          | No                        |                                                                                                                                                                                                                                                          |
-| Does it create tracking issues/tickets in GitHub?                      | Partial                   | Sometimes it suggest to amke a commit. But sometimes I did it myself.                                                                                                                                                                                    |
-| Does it automatically open a Pull Request (PR) when done?              | Partial                   | It suggested to open PR.                                                                                                                                                                                                                                 |
-| Does it clean up its own meta-files/temp files before submitting code? | No                        | I\m not sure iof we need toc lean up tcreate files or we need to keep them                                                                                                                                                                               |
+| Does it create tracking issues/tickets in GitHub?                      | Partial                   | Sometimes it suggested making a commit, but sometimes I did it myself.                                                                                                                                                                                   |
+| Does it automatically open a Pull Request (PR) when done?              | Partial                   | It suggested opening a PR.                                                                                                                                                                                                                               |
+| Does it clean up its own meta-files/temp files before submitting code? | No                        | I'm not sure whether we need to clean up the created files or keep them.                                                                                                                                                                                 |
 
 
 ### 5. Subjective Developer Experience (UX)
@@ -119,7 +119,7 @@ Step 1: `**grill-with-docs`** (Started the design workflow for the homepage Clas
 
 | Evaluation Question                                                | Response (Yes/No/Partial) | Human Notes / Comments                                                                                    |
 | ------------------------------------------------------------------ | ------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Did you feel confident letting the agent run unattended?           | No                        | Firstly it skipp flow at all and after grilling session did the task, without prd, issues, tdd and so on. |
+| Did you feel confident letting the agent run unattended?           | No                        | At first it skipped the flow entirely and, after the grilling session, implemented the task without a PRD, issues, TDD, and so on. |
 | Was the experience less exhausting than writing the code manually? | Partial                   |                                                                                                           |
 | Would a non-developer (PM/QA) be able to run this exact flow?      | No                        |                                                                                                           |
 
@@ -142,4 +142,8 @@ Suggested prompts:
 
 Notes:
 
-[Freeform human notes here]
+The strongest part of the experience was the planning support once the workflow was explicit. `/grilling`, `/to-prd`, and `/to-issues` produced useful artifacts, and I especially liked the issue descriptions, manual testing checklists, and the PR linking back to sub-issues.
+
+The weakest part was flow consistency. At the beginning, the agent moved too quickly into implementation instead of first suggesting the full PRD -> issues -> TDD path. Some behavior also felt inconsistent, especially around branch creation and what was considered "done" for a given issue. That reduced trust until I stepped in and redirected the process.
+
+Overall, the workflow feels promising, but it needs a clearer default path, stronger issue-boundary discipline, and more predictable automation so that the process is easier to follow and trust from start to finish.
