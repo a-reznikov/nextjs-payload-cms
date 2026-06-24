@@ -42,6 +42,29 @@
             min-height: 320px;
         }
 
+        .matrix-tooltip {
+            position: fixed;
+            z-index: 9999;
+            max-width: min(280px, calc(100vw - 32px));
+            padding: 0.65rem 0.75rem;
+            border-radius: 0.5rem;
+            background: #0f172a;
+            color: #f8fafc;
+            font-size: 0.75rem;
+            font-weight: 500;
+            line-height: 1.4;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.22);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-0.25rem);
+            transition: opacity 120ms ease, transform 120ms ease;
+        }
+
+        .matrix-tooltip.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .metric-bar {
             height: 0.65rem;
             overflow: hidden;
@@ -361,45 +384,29 @@
             </div>
         </section>
 
-        <!-- DECISION LOGIC SELECTOR -->
-        <section class="bg-gradient-to-br from-indigo-50 to-slate-100 p-6 md:p-8 rounded-2xl border border-slate-200/80 mb-12">
-            <div class="max-w-3xl">
-                <h3 class="text-xl font-bold text-slate-900">Framework Selector Engine</h3>
-                <p class="text-xs text-slate-600 mt-1">Instantly determine the optimal agentic development tool for your current team scope.</p>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Project Scale</label>
-                        <select id="select-scale" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 font-medium">
-                            <option value="micro">Micro Feature / Layout Modification</option>
-                            <option value="medium">Medium Domain Subsystem</option>
-                            <option value="large">Large Architecture / Greenfield App</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Team Persona</label>
-                        <select id="select-team" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 font-medium">
-                            <option value="solodev">Solo Command-Line Developer</option>
-                            <option value="techteam">Fully Technical Development Team</option>
-                            <option value="hybrid">Hybrid (PMs, Product, & Engineers)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Primary Priority</label>
-                        <select id="select-priority" class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-sm text-slate-800 font-medium">
-                            <option value="autonomy">Complete AI Autonomy</option>
-                            <option value="safety">Rigorous Safety & Documentation</option>
-                            <option value="composability">Lightweight Guardrails</option>
-                        </select>
-                    </div>
-                </div>
+        <!-- CONCLUSION SECTION -->
+        <section class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200/80 shadow-sm mb-12">
+            <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Conclusion</span>
+            <h3 class="text-xl font-bold text-slate-900 mt-1">Practical Recommendation</h3>
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed max-w-4xl">
+                All tested approaches follow the same basic spec-driven path: clarify the idea, turn it into requirements, split the work into tasks, implement, and verify. The main difference is how much structure, automation, and human control each tool adds around that path.
+            </p>
 
-                <div class="mt-6 flex justify-start">
-                    <button onclick="calculateRecommendation()" class="bg-slate-900 text-white font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-lg hover:bg-slate-800 transition">Analyze Configuration</button>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                <div class="border border-slate-100 rounded-xl p-5 bg-slate-50/70">
+                    <p class="text-xs font-bold uppercase tracking-widest text-emerald-700">Best default</p>
+                    <h4 class="text-base font-black text-slate-900 mt-2">OpenSpec</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed mt-2">Most balanced result in this run: low reported cost, readable artifacts, and easy control. Git and PR steps still need human direction.</p>
                 </div>
-
-                <div id="selector-result" class="mt-6 hidden p-4 bg-white rounded-xl border border-indigo-200 shadow-sm transition duration-300">
-                    <!-- Dynamic evaluation results go here -->
+                <div class="border border-slate-100 rounded-xl p-5 bg-slate-50/70">
+                    <p class="text-xs font-bold uppercase tracking-widest text-indigo-700">Best for automation</p>
+                    <h4 class="text-base font-black text-slate-900 mt-2">Superpowers</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed mt-2">Strongest execution loop with subagents, TDD, checks, and commits. Use it when the task is large enough to justify higher resource cost.</p>
+                </div>
+                <div class="border border-slate-100 rounded-xl p-5 bg-slate-50/70">
+                    <p class="text-xs font-bold uppercase tracking-widest text-amber-700">Use carefully</p>
+                    <h4 class="text-base font-black text-slate-900 mt-2">Pocock, Spec Kit, Taskmaster</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed mt-2">Pocock Skills need a developer who knows the command order. Spec Kit creates heavy documentation. Taskmaster was not tested with the same flow and felt split between terminal task management and chat implementation.</p>
                 </div>
             </div>
         </section>
@@ -692,6 +699,16 @@
                 gitPr: "Partial",
                 pmFit: "Yes",
                 confidence: "Partial",
+                tips: {
+                    setup: "Once installed, the plugin can work across projects, but the deep workflow may be more than needed for simple questions.",
+                    control: "The agent kept working during implementation, so pausing or correcting it required manual interruption.",
+                    automationDepth: "It suggested an implementation flow, orchestrated subagents, used TDD checks, and made intermediate commits.",
+                    artifacts: "Documentation volume was well-balanced; scope was controlled, with only minor project-style tuning needed.",
+                    tdd: "The report marks this as a clear TDD flow.",
+                    gitPr: "Intermediate commits were strong, but branch creation and PR opening still needed human prompts.",
+                    pmFit: "No extra report note.",
+                    confidence: "Fairly trustworthy because of TDD, subagents, and checks, but the token cost was high."
+                },
                 prNumber: 22,
                 prTitle: "Superpowers: Add register for class modal flow",
                 prUrl: "https://github.com/a-reznikov/nextjs-payload-cms/pull/22",
@@ -716,6 +733,16 @@
                 gitPr: "No",
                 pmFit: "Partial",
                 confidence: "Yes",
+                tips: {
+                    setup: "Easy to integrate and trigger; documentation matched the actual flow, but custom skills were used only when explicitly requested.",
+                    control: "Straightforward to steer, stop, rerun, and correct; it also suggested the next skills to call.",
+                    automationDepth: "It worked step by step and did not suggest parallel execution or orchestrate subagents.",
+                    artifacts: "Specs, tasks, and documentation were clear, balanced, and easy to place in the project structure.",
+                    tdd: "Reached a red, green, refactor pattern, but not strict TDD because the test came after initial implementation.",
+                    gitPr: "Branching, commits, issues, and PR creation happened only after explicit human requests.",
+                    pmFit: "A PM/QA user would still need to run steps manually and read deeper command or skill documentation.",
+                    confidence: "No extra report note."
+                },
                 prNumber: 23,
                 prTitle: "Open-spec: add class registration modal flow",
                 prUrl: "https://github.com/a-reznikov/nextjs-payload-cms/pull/23",
@@ -740,6 +767,16 @@
                 gitPr: "Partial",
                 pmFit: "No",
                 confidence: "No",
+                tips: {
+                    setup: "Integration was only partial: it was unclear which skills to use, and the documentation lacked a strict flow.",
+                    control: "It worked one task at a time, which made it easy to steer, pause, and correct.",
+                    automationDepth: "It did not suggest a full implementation flow or orchestrate subagents; next-step guidance was incomplete.",
+                    artifacts: "PRD and issue output were useful, but it was unclear what to do with the created artifacts afterward.",
+                    tdd: "TDD worked only when the /tdd skill was called explicitly; the first session skipped that flow.",
+                    gitPr: "Branching, issues, and PR creation were only partial, and intermediate commits were not automatic.",
+                    pmFit: "No extra report note.",
+                    confidence: "At first it skipped PRD, issues, and TDD, which reduced trust in unattended execution."
+                },
                 prNumber: 28,
                 prTitle: "Matt Pocock: add Class Registration homepage flow",
                 prUrl: "https://github.com/a-reznikov/nextjs-payload-cms/pull/28",
@@ -764,6 +801,16 @@
                 gitPr: "No",
                 pmFit: "Partial",
                 confidence: "No",
+                tips: {
+                    setup: "Requires uv and some Python dependencies, so it felt better suited to new projects than existing ones.",
+                    control: "It was easy to steer, pause, and correct, but it did not ask clarification questions first.",
+                    automationDepth: "It suggested commands, but no implementation flow or subagent orchestration; some commands did not work cleanly.",
+                    artifacts: "Generated many files, which made the result difficult to read and understand.",
+                    tdd: "Implementation happened before tests were updated, with no explicit failing-test-first or refactor phase.",
+                    gitPr: "Branching, commits, issues, PR creation, and cleanup all remained unclear or manual.",
+                    pmFit: "It did not provide an end-to-end flow for branch, commit, PR, and cleanup decisions.",
+                    confidence: "No extra report note."
+                },
                 prNumber: 21,
                 prTitle: "Spec-kit: add register for class flow",
                 prUrl: "https://github.com/a-reznikov/nextjs-payload-cms/pull/21",
@@ -797,7 +844,15 @@
             }
         ];
 
-        function statusChip(status) {
+        function escapeAttribute(value) {
+            return String(value || 'No extra report note.')
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function statusChip(status, tip) {
             const classes = {
                 Yes: "bg-emerald-50 text-emerald-700 border-emerald-200",
                 Partial: "bg-amber-50 text-amber-700 border-amber-200",
@@ -805,7 +860,84 @@
                 Unrated: "bg-slate-50 text-slate-500 border-slate-200"
             };
 
-            return `<span class="inline-flex items-center justify-center min-w-[64px] px-2 py-1 rounded-full border text-[11px] font-bold ${classes[status] || classes.Unrated}">${status}</span>`;
+            const safeTip = escapeAttribute(tip);
+            return `<span class="status-chip inline-flex items-center justify-center min-w-[64px] px-2 py-1 rounded-full border text-[11px] font-bold cursor-help ${classes[status] || classes.Unrated}" tabindex="0" data-tip="${safeTip}" aria-label="${safeTip}">${status}</span>`;
+        }
+
+        let activeTooltipTarget = null;
+        let statusTooltip = null;
+
+        function ensureStatusTooltip() {
+            if (statusTooltip) return statusTooltip;
+
+            statusTooltip = document.createElement('div');
+            statusTooltip.className = 'matrix-tooltip';
+            statusTooltip.setAttribute('role', 'tooltip');
+            document.body.appendChild(statusTooltip);
+            return statusTooltip;
+        }
+
+        function positionStatusTooltip(target) {
+            if (!statusTooltip || !target) return;
+
+            const margin = 12;
+            const gap = 10;
+            const targetRect = target.getBoundingClientRect();
+            const tooltipRect = statusTooltip.getBoundingClientRect();
+            let left = targetRect.left + targetRect.width / 2;
+            let top = targetRect.top - tooltipRect.height - gap;
+
+            const minLeft = margin + tooltipRect.width / 2;
+            const maxLeft = window.innerWidth - margin - tooltipRect.width / 2;
+            left = Math.min(Math.max(left, minLeft), maxLeft);
+
+            if (top < margin) {
+                top = targetRect.bottom + gap;
+            }
+
+            statusTooltip.style.left = `${left - tooltipRect.width / 2}px`;
+            statusTooltip.style.top = `${top}px`;
+        }
+
+        function showStatusTooltip(target) {
+            const tip = target?.getAttribute('data-tip') || 'No extra report note.';
+            activeTooltipTarget = target;
+            ensureStatusTooltip().textContent = tip;
+            statusTooltip.classList.add('is-visible');
+            requestAnimationFrame(() => positionStatusTooltip(target));
+        }
+
+        function hideStatusTooltip() {
+            activeTooltipTarget = null;
+            if (statusTooltip) {
+                statusTooltip.classList.remove('is-visible');
+            }
+        }
+
+        function setupStatusTooltips() {
+            document.addEventListener('mouseover', event => {
+                const chip = event.target.closest('.status-chip');
+                if (chip) showStatusTooltip(chip);
+            });
+
+            document.addEventListener('mouseout', event => {
+                const chip = event.target.closest('.status-chip');
+                if (chip && !chip.contains(event.relatedTarget)) hideStatusTooltip();
+            });
+
+            document.addEventListener('focusin', event => {
+                const chip = event.target.closest('.status-chip');
+                if (chip) showStatusTooltip(chip);
+            });
+
+            document.addEventListener('focusout', event => {
+                if (event.target.closest('.status-chip')) hideStatusTooltip();
+            });
+
+            window.addEventListener('resize', hideStatusTooltip);
+            window.addEventListener('scroll', () => {
+                if (activeTooltipTarget) positionStatusTooltip(activeTooltipTarget);
+            }, true);
         }
 
         function renderExecutionComparison() {
@@ -829,14 +961,14 @@
                             </div>
                         </div>
                     </td>
-                    <td class="px-4 py-4">${statusChip(item.setup)}</td>
-                    <td class="px-4 py-4">${statusChip(item.control)}</td>
-                    <td class="px-4 py-4">${statusChip(item.automationDepth)}</td>
-                    <td class="px-4 py-4">${statusChip(item.artifacts)}</td>
-                    <td class="px-4 py-4">${statusChip(item.tdd)}</td>
-                    <td class="px-4 py-4">${statusChip(item.gitPr)}</td>
-                    <td class="px-4 py-4">${statusChip(item.pmFit)}</td>
-                    <td class="px-4 py-4">${statusChip(item.confidence)}</td>
+                    <td class="px-4 py-4">${statusChip(item.setup, item.tips?.setup)}</td>
+                    <td class="px-4 py-4">${statusChip(item.control, item.tips?.control)}</td>
+                    <td class="px-4 py-4">${statusChip(item.automationDepth, item.tips?.automationDepth)}</td>
+                    <td class="px-4 py-4">${statusChip(item.artifacts, item.tips?.artifacts)}</td>
+                    <td class="px-4 py-4">${statusChip(item.tdd, item.tips?.tdd)}</td>
+                    <td class="px-4 py-4">${statusChip(item.gitPr, item.tips?.gitPr)}</td>
+                    <td class="px-4 py-4">${statusChip(item.pmFit, item.tips?.pmFit)}</td>
+                    <td class="px-4 py-4">${statusChip(item.confidence, item.tips?.confidence)}</td>
                     <td class="px-4 py-4 max-w-[270px] leading-relaxed">${item.fit}</td>
                 </tr>
             `).join('');
@@ -1057,55 +1189,6 @@
             `;
         }
 
-        function calculateRecommendation() {
-            const scale = document.getElementById('select-scale').value;
-            const team = document.getElementById('select-team').value;
-            const priority = document.getElementById('select-priority').value;
-            
-            const resultDiv = document.getElementById('selector-result');
-            resultDiv.classList.remove('hidden');
-
-            let recommendedKey = "speckit";
-            let rationale = "";
-
-            if (priority === 'autonomy') {
-                recommendedKey = 'superpowers';
-                rationale = "Your team prioritizes hands-off execution. Superpowers automatically coordinates subagents inside isolated Git worktrees and deletes any code that fails TDD loops.";
-            } else if (priority === 'composability') {
-                recommendedKey = 'pocock';
-                rationale = "You value speed and flexible prompts. Matt Pocock's skills run diagnostic audits and organize tasks directly within your IDE without custom software frameworks.";
-            } else {
-                // priority === safety
-                if (scale === 'micro') {
-                    recommendedKey = 'openspec';
-                    rationale = "For small changes requiring spec alignment, OpenSpec maintains safety with light delta specs, avoiding file and issue bloat.";
-                } else if (team === 'hybrid' || scale === 'large') {
-                    recommendedKey = 'speckit';
-                    rationale = "You require top-tier specs and cross-functional ticket coordination. Spec Kit makes specs the source of truth and integrates with GitHub, though you should bypass ticket syncing on minor visual updates.";
-                } else {
-                    recommendedKey = 'taskmaster';
-                    rationale = "For engineering teams working on features of variable complexity, Taskmaster provides complexity scoring and automated sandbox loops.";
-                }
-            }
-
-            const rec = data[recommendedKey];
-
-            resultDiv.innerHTML = `
-                <div class="flex items-center gap-2 mb-2">
-                    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">Engine Recommendation</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <span class="w-4 h-4 rounded-full" style="background-color: ${rec.themeColor}"></span>
-                    <h4 class="text-lg font-black text-slate-800">${rec.title}</h4>
-                </div>
-                <p class="text-xs text-slate-600 font-semibold mt-1 italic">${rec.paradigm}</p>
-                <p class="text-xs text-slate-600 mt-2 leading-relaxed">${rationale}</p>
-                <div class="mt-4 flex gap-2">
-                    <button onclick="switchFramework('${recommendedKey}'); window.location.hash='details';" class="text-[11px] font-bold uppercase tracking-wider text-white bg-slate-900 px-3.5 py-2 rounded hover:bg-slate-800 transition">View Full Profile</button>
-                </div>
-            `;
-        }
-
         let radarChartInstance = null;
         function initRadar() {
             const ctx = document.getElementById('capabilityRadar').getContext('2d');
@@ -1195,6 +1278,7 @@
         window.onload = function () {
             initRadar();
             renderExecutionComparison();
+            setupStatusTooltips();
             initExecutionResourceChart();
             // Default to the first framework shown in the navigator order.
             switchFramework('superpowers');
